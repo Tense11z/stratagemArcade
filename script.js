@@ -14,6 +14,7 @@ function createArrowDivs(arrows) {
         const arrowDiv = document.createElement('div');
         arrowDiv.textContent = arrow;
         if (index === 0) {
+            arrowDiv.classList.add('firstArrow');
             arrowDiv.classList.add('current');
         } else if (index === arrows.length-1) {
             arrowDiv.classList.add('lastArrow');
@@ -47,7 +48,7 @@ function moveCurrentArrow(currentArrowDiv) {
             nextDiv.classList.add('current');
         } else {
             // If there's no next sibling, loop back to the first div
-            const firstDiv = document.querySelector('div');
+            const firstDiv = document.querySelector('.firstArrow');
             firstDiv.classList.add('current');
         }
     }
@@ -71,6 +72,10 @@ const input = document.addEventListener('keydown', function(e) {
             // Code to execute if the pressed key matches the arrow direction
             const currentArrowDiv = document.querySelector('.current');
             moveCurrentArrow(currentArrowDiv);
+        } else {
+            currentArrowDiv.classList.remove('current');
+            const firstDiv = document.querySelector('.firstArrow');
+            firstDiv.classList.add('current');
         }
     }
 });
