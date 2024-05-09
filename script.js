@@ -7,31 +7,34 @@ const stratagems = {
     'SH-20 Ballistic Shield Backpack': ['↓','←','↓','↓','↑','←']
 };
 
+// // Create divs for each arrow in the first stratagem
+const container = createArrowDivs();
+
 // Function to create divs for each arrow
-function createArrowDivs(arrows) {
+function createArrowDivs() {
+    // Pull a new random stratagem from the stratagems list
+    const stratagemNames = Object.keys(stratagems);
+    let randomStratagemName = stratagemNames[Math.floor(Math.random() * stratagemNames.length)];
+    let randomStratagemArrows = stratagems[randomStratagemName];
+    
     const container = document.createElement('div');
-    arrows.forEach((arrow, index) => {
+    randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
         arrowDiv.textContent = arrow;
         if (index === 0) {
             arrowDiv.classList.add('firstArrow');
             arrowDiv.classList.add('current');
-        } else if (index === arrows.length-1) {
+        } else if (index === randomStratagemArrows.length-1) {
             arrowDiv.classList.add('lastArrow');
         }
         container.appendChild(arrowDiv);
     });
+    container.classList.add('container')
     return container;
 }
-// Get the arrows for the first stratagem
-const firstStratagemArrows = stratagems['LIFT-850 Jump Pack'];
 
-// Create divs for each arrow in the first stratagem
-const container = createArrowDivs(firstStratagemArrows);
-
-// Append the container to the body
+// // Append the container to the body
 document.body.appendChild(container);
-
 
 
 // Function to move the current arrow div to the next arrow div
@@ -72,11 +75,21 @@ const input = document.addEventListener('keydown', function(e) {
             // Code to execute if the pressed key matches the arrow direction
             const currentArrowDiv = document.querySelector('.current');
             moveCurrentArrow(currentArrowDiv);
+
+            // Check if the current arrow div is the last arrow div
+            if (currentArrowDiv.classList.contains('lastArrow')) {
+                let containerToRemove = document.querySelector('.container');
+                document.body.removeChild(containerToRemove);
+                let container = createArrowDivs();
+                document.body.appendChild(container);
+            }
         } else {
+            // If incorrect key is pressed, reset to the first arrow div
             currentArrowDiv.classList.remove('current');
             const firstDiv = document.querySelector('.firstArrow');
             firstDiv.classList.add('current');
         }
     }
 });
+
 
