@@ -1,4 +1,3 @@
-
 // arrows ← ↑ → ↓
 const stratagems = {
     // type: backpacks
@@ -28,8 +27,33 @@ const stratagems = {
 
 timeDisplay = document.querySelector('.countdown');
 
-// // Create divs for each arrow in the first stratagem
-const container = createArrowDivs();
+// Function to initialize the game
+function initGame() {
+    const container = createContainer();
+    document.body.appendChild(container);
+
+    const keydownListener = document.addEventListener('keydown', handleKeyDown);
+}
+
+// Function to create a new container
+function createContainer() {
+    const container = createArrowDivs();
+    container.classList.add('container');
+    return container;
+}
+
+function timer(){
+    let seconds = 10;
+    let timer = setInterval(function(){
+        timeDisplay.innerHTML='00:'+seconds;
+        seconds--;
+        if (seconds <0) {
+            clearInterval(timer);
+            timeDisplay.textContent = 'Time is out';
+            
+        }
+    }, 1000)
+}
 
 // Function to create divs for each arrow
 function createArrowDivs() {
@@ -50,54 +74,17 @@ function createArrowDivs() {
         }
         container.appendChild(arrowDiv);
     });
-    container.classList.add('container')
+    container.classList.add('container');
     return container;
 }
 
-function timer(){
-    let seconds = 10;
-    let timer = setInterval(function(){
-        timeDisplay.innerHTML='00:'+seconds;
-        seconds--;
-        if (seconds <0) {
-            clearInterval(timer);
-            timeDisplay.textContent = 'Time is out';
-            
-        }
-    }, 1000)
-}
-
-
-// // Append the container to the body
-document.body.appendChild(container);
-
-
-// Function to move the current arrow div to the next arrow div
-function moveCurrentArrow(currentArrowDiv) {
-    if (currentArrowDiv) {
-        // Remove .current class from the current div
-        currentArrowDiv.classList.remove('current');
-
-        // Find the next sibling div
-        const nextDiv = currentArrowDiv.nextElementSibling;
-
-        if (nextDiv) {
-            // Add .current class to the next div
-            nextDiv.classList.add('current');
-        } else {
-            // If there's no next sibling, loop back to the first div
-            const firstDiv = document.querySelector('.firstArrow');
-            firstDiv.classList.add('current');
-        }
-    }
-}
-
-
-const input = document.addEventListener('keydown', function(e) {
+// Function to handle keydown events
+function handleKeyDown(e) {
     if (!timeDisplay.classList.contains('startTimer')){
         timeDisplay.classList.add('startTimer');
         timer();
     }
+
     // Get the current arrow div
     const currentArrowDiv = document.querySelector('.current');
     if (currentArrowDiv) {
@@ -120,7 +107,7 @@ const input = document.addEventListener('keydown', function(e) {
             if (currentArrowDiv.classList.contains('lastArrow')) {
                 let containerToRemove = document.querySelector('.container');
                 document.body.removeChild(containerToRemove);
-                let container = createArrowDivs();
+                let container = createContainer();
                 document.body.appendChild(container);
             }
         } else {
@@ -130,6 +117,27 @@ const input = document.addEventListener('keydown', function(e) {
             firstDiv.classList.add('current');
         }
     }
-});
+}
 
+// Function to move the current arrow div to the next arrow div
+function moveCurrentArrow(currentArrowDiv) {
+    if (currentArrowDiv) {
+        // Remove .current class from the current div
+        currentArrowDiv.classList.remove('current');
 
+        // Find the next sibling div
+        const nextDiv = currentArrowDiv.nextElementSibling;
+
+        if (nextDiv) {
+            // Add .current class to the next div
+            nextDiv.classList.add('current');
+        } else {
+            // If there's no next sibling, loop back to the first div
+            const firstDiv = document.querySelector('.firstArrow');
+            firstDiv.classList.add('current');
+        }
+    }
+}
+
+// Initialize the game
+initGame();
