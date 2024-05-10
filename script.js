@@ -26,6 +26,8 @@ const stratagems = {
 };
 
 timeDisplay = document.querySelector('.countdown');
+playerScore = document.querySelector('.playerScore');
+let currentScore = 0;
 
 // Function to initialize the game
 function initGame() {
@@ -42,17 +44,19 @@ function createContainer() {
     return container;
 }
 
+let secondsLeft = 2;
+
 function timer(){
-    let seconds = 10;
     let timer = setInterval(function(){
-        timeDisplay.innerHTML='00:'+seconds;
-        seconds--;
-        if (seconds <0) {
+        timeDisplay.innerHTML='00:'+secondsLeft;
+        secondsLeft--;
+        if (secondsLeft <0) {
             clearInterval(timer);
             timeDisplay.textContent = 'Time is out';
             
         }
     }, 1000)
+    
 }
 
 // Function to create divs for each arrow
@@ -80,42 +84,50 @@ function createArrowDivs() {
 
 // Function to handle keydown events
 function handleKeyDown(e) {
-    if (!timeDisplay.classList.contains('startTimer')){
-        timeDisplay.classList.add('startTimer');
-        timer();
-    }
-
-    // Get the current arrow div
-    const currentArrowDiv = document.querySelector('.current');
-    if (currentArrowDiv) {
-        // Get the text content of the current arrow div
-        const currentArrow = currentArrowDiv.textContent;
-        // Map arrow directions to their corresponding key names
-        const arrowKeyMap = {
-            '↓': 'ArrowDown',
-            '↑': 'ArrowUp',
-            '←': 'ArrowLeft',
-            '→': 'ArrowRight'
-        };
-        // Check if the pressed key matches the current arrow direction
-        if (e.key === arrowKeyMap[currentArrow]) {
-            // Code to execute if the pressed key matches the arrow direction
-            const currentArrowDiv = document.querySelector('.current');
-            moveCurrentArrow(currentArrowDiv);
-
-            // Check if the current arrow div is the last arrow div
-            if (currentArrowDiv.classList.contains('lastArrow')) {
-                let containerToRemove = document.querySelector('.container');
-                document.body.removeChild(containerToRemove);
-                let container = createContainer();
-                document.body.appendChild(container);
-            }
-        } else {
-            // If incorrect key is pressed, reset to the first arrow div
-            currentArrowDiv.classList.remove('current');
-            const firstDiv = document.querySelector('.firstArrow');
-            firstDiv.classList.add('current');
+    if (secondsLeft>=0) {
+        if (!timeDisplay.classList.contains('startTimer')){
+            timeDisplay.classList.add('startTimer');
+            timer();
         }
+
+        // Get the current arrow div
+        const currentArrowDiv = document.querySelector('.current');
+        if (currentArrowDiv) {
+            // Get the text content of the current arrow div
+            const currentArrow = currentArrowDiv.textContent;
+            // Map arrow directions to their corresponding key names
+            const arrowKeyMap = {
+                '↓': 'ArrowDown',
+                '↑': 'ArrowUp',
+                '←': 'ArrowLeft',
+                '→': 'ArrowRight'
+            };
+            // Check if the pressed key matches the current arrow direction
+            if (e.key === arrowKeyMap[currentArrow]) {
+                // Code to execute if the pressed key matches the arrow direction
+                const currentArrowDiv = document.querySelector('.current');
+                moveCurrentArrow(currentArrowDiv);
+
+                // Check if the current arrow div is the last arrow div
+                if (currentArrowDiv.classList.contains('lastArrow')) {
+                    let containerToRemove = document.querySelector('.container');
+                    document.body.removeChild(containerToRemove);
+                    let container = createContainer();
+                    document.body.appendChild(container);
+                    secondsLeft +=3;
+                    currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft/(59*Math.PI));
+                    playerScore.textContent = Math.round(currentScore);
+                    // timeDisplay.textContent = Number(timeDisplay.textContent.substring(timeDisplay.textContent.indexOf(':')+1,timeDisplay.textContent.length)) + 3;
+                }
+            } else {
+                // If incorrect key is pressed, reset to the first arrow div
+                currentArrowDiv.classList.remove('current');
+                const firstDiv = document.querySelector('.firstArrow');
+                firstDiv.classList.add('current');
+            }
+        }
+    } else {
+
     }
 }
 
