@@ -1,11 +1,32 @@
 
 // arrows ← ↑ → ↓
 const stratagems = {
+    // type: backpacks
     'LIFT-850 Jump Pack': ['↓','↑','↑','↓','↑'],
     'B-1 Supply Pack': ['↓','←','↓','↑','↑','↓'],
     'AX/LAS-5 "Guard Dog" Rover': ['↓','↑','←','↑','→','→'],
-    'SH-20 Ballistic Shield Backpack': ['↓','←','↓','↓','↑','←']
+    'SH-20 Ballistic Shield Backpack': ['↓','←','↓','↓','↑','←'],
+    'SH-32 Shield Generator Pack': ['↓','↑','←','→','←','→'],
+    'AX/AR-23 "Guard Dog"': ['↓','↑','←','↑','→','↓'],
+    // type: supportWeapons
+    'MG-43 Machine Gun': ['↓','←','↓','↑','→'],
+    'APW-1 Anti-Materiel Rifle': ['↓','←','→','↑','↓'],
+    'M-105 Stalwart': ['↓','←','↓','↑','↑','←'],
+    'EAT-17 Expendable Anti-tank': ['↓','↓','←','↑','→'],
+    'GR-8 Recoilless Rifle': ['↓','←','→','→','←'],
+    'FLAM-40 Flamethrower': ['↓','←','↑','↓','↑'],
+    'AC-8 Autocannon': ['↓','←','↓','↑','↑','→'],
+    'MG-206 Heavy Machine Gun': ['↓','←','↑','↓','↓'],
+    'RS-422 Railgun': ['↓','→','↓','↑','←','→'],
+    'FAF-14 SPEAR Launcher': ['↓','↓','↑','↓','↓'],
+    'GL-21 Grenade Launcher': ['↓','←','↑','←','↓'],
+    'LAS-98 Laser Cannon': ['↓','←','↓','↑','←'],
+    'ARC-3 Arc Thrower': ['↓','→','↓','↑','←','←'],
+    'LAS-99 Quasar Cannon': ['↓','↓','↑','←','→'],
+    'RL-77 Airburst Rocket Launcher': ['↓','↑','↑','←','→']
 };
+
+timeDisplay = document.querySelector('.countdown');
 
 // // Create divs for each arrow in the first stratagem
 const container = createArrowDivs();
@@ -33,6 +54,20 @@ function createArrowDivs() {
     return container;
 }
 
+function timer(){
+    let seconds = 10;
+    let timer = setInterval(function(){
+        timeDisplay.innerHTML='00:'+seconds;
+        seconds--;
+        if (seconds <0) {
+            clearInterval(timer);
+            timeDisplay.textContent = 'Time is out';
+            
+        }
+    }, 1000)
+}
+
+
 // // Append the container to the body
 document.body.appendChild(container);
 
@@ -57,7 +92,12 @@ function moveCurrentArrow(currentArrowDiv) {
     }
 }
 
+
 const input = document.addEventListener('keydown', function(e) {
+    if (!timeDisplay.classList.contains('startTimer')){
+        timeDisplay.classList.add('startTimer');
+        timer();
+    }
     // Get the current arrow div
     const currentArrowDiv = document.querySelector('.current');
     if (currentArrowDiv) {
