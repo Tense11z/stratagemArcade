@@ -1,40 +1,51 @@
 // arrows ← ↑ → ↓
 const stratagems = {
     // type: backpacks
-    'LIFT-850 Jump Pack': ['↓','↑','↑','↓','↑'],
-    'B-1 Supply Pack': ['↓','←','↓','↑','↑','↓'],
-    'AX/LAS-5 "Guard Dog" Rover': ['↓','↑','←','↑','→','→'],
-    'SH-20 Ballistic Shield Backpack': ['↓','←','↓','↓','↑','←'],
-    'SH-32 Shield Generator Pack': ['↓','↑','←','→','←','→'],
-    'AX/AR-23 "Guard Dog"': ['↓','↑','←','↑','→','↓'],
+    'LIFT-850 Jump Pack': ['↓', '↑', '↑', '↓', '↑'],
+    'B-1 Supply Pack': ['↓', '←', '↓', '↑', '↑', '↓'],
+    'AX/LAS-5 "Guard Dog" Rover': ['↓', '↑', '←', '↑', '→', '→'],
+    'SH-20 Ballistic Shield Backpack': ['↓', '←', '↓', '↓', '↑', '←'],
+    'SH-32 Shield Generator Pack': ['↓', '↑', '←', '→', '←', '→'],
+    'AX/AR-23 "Guard Dog"': ['↓', '↑', '←', '↑', '→', '↓'],
     // type: supportWeapons
-    'MG-43 Machine Gun': ['↓','←','↓','↑','→'],
-    'APW-1 Anti-Materiel Rifle': ['↓','←','→','↑','↓'],
-    'M-105 Stalwart': ['↓','←','↓','↑','↑','←'],
-    'EAT-17 Expendable Anti-tank': ['↓','↓','←','↑','→'],
-    'GR-8 Recoilless Rifle': ['↓','←','→','→','←'],
-    'FLAM-40 Flamethrower': ['↓','←','↑','↓','↑'],
-    'AC-8 Autocannon': ['↓','←','↓','↑','↑','→'],
-    'MG-206 Heavy Machine Gun': ['↓','←','↑','↓','↓'],
-    'RS-422 Railgun': ['↓','→','↓','↑','←','→'],
-    'FAF-14 SPEAR Launcher': ['↓','↓','↑','↓','↓'],
-    'GL-21 Grenade Launcher': ['↓','←','↑','←','↓'],
-    'LAS-98 Laser Cannon': ['↓','←','↓','↑','←'],
-    'ARC-3 Arc Thrower': ['↓','→','↓','↑','←','←'],
-    'LAS-99 Quasar Cannon': ['↓','↓','↑','←','→'],
-    'RL-77 Airburst Rocket Launcher': ['↓','↑','↑','←','→']
+    'MG-43 Machine Gun': ['↓', '←', '↓', '↑', '→'],
+    'APW-1 Anti-Materiel Rifle': ['↓', '←', '→', '↑', '↓'],
+    'M-105 Stalwart': ['↓', '←', '↓', '↑', '↑', '←'],
+    'EAT-17 Expendable Anti-tank': ['↓', '↓', '←', '↑', '→'],
+    'GR-8 Recoilless Rifle': ['↓', '←', '→', '→', '←'],
+    'FLAM-40 Flamethrower': ['↓', '←', '↑', '↓', '↑'],
+    'AC-8 Autocannon': ['↓', '←', '↓', '↑', '↑', '→'],
+    'MG-206 Heavy Machine Gun': ['↓', '←', '↑', '↓', '↓'],
+    'RS-422 Railgun': ['↓', '→', '↓', '↑', '←', '→'],
+    'FAF-14 SPEAR Launcher': ['↓', '↓', '↑', '↓', '↓'],
+    'GL-21 Grenade Launcher': ['↓', '←', '↑', '←', '↓'],
+    'LAS-98 Laser Cannon': ['↓', '←', '↓', '↑', '←'],
+    'ARC-3 Arc Thrower': ['↓', '→', '↓', '↑', '←', '←'],
+    'LAS-99 Quasar Cannon': ['↓', '↓', '↑', '←', '→'],
+    'RL-77 Airburst Rocket Launcher': ['↓', '↑', '↑', '←', '→']
 };
 
 timeDisplay = document.querySelector('.countdown');
 playerScore = document.querySelector('.playerScore');
 let currentScore = 0;
+let currentRound = 0;
+let roundStratagemList = new Array();
+let stratagemID = 0;
 
 // Function to initialize the game
 function initGame() {
+    startRound();
     const container = createContainer();
     document.body.appendChild(container);
-
     const keydownListener = document.addEventListener('keydown', handleKeyDown);
+}
+
+function startRound() {
+    roundStratagemList = [];
+    const stratagemNames = Object.keys(stratagems);
+    for (let i = 0; i < 6; i += 1) {
+        roundStratagemList.push(stratagems[stratagemNames[Math.floor(Math.random() * stratagemNames.length)]]);
+    }
 }
 
 // Function to create a new container
@@ -46,26 +57,47 @@ function createContainer() {
 
 let secondsLeft = 2;
 
-function timer(){
-    let timer = setInterval(function(){
-        timeDisplay.innerHTML='00:'+secondsLeft;
+function timer() {
+    let timer = setInterval(function () {
+        timeDisplay.innerHTML = '00:' + secondsLeft;
         secondsLeft--;
-        if (secondsLeft <0) {
+        if (secondsLeft < 0) {
             clearInterval(timer);
             timeDisplay.textContent = 'Time is out';
-            
+
         }
     }, 1000)
-    
+
 }
 
 // Function to create divs for each arrow
+// function createArrowDivs() {
+//     // Pull a new random stratagem from the stratagems list
+//     const stratagemNames = Object.keys(stratagems);
+//     let randomStratagemName = stratagemNames[Math.floor(Math.random() * stratagemNames.length)];
+//     let randomStratagemArrows = stratagems[randomStratagemName];
+
+//     const container = document.createElement('div');
+//     randomStratagemArrows.forEach((arrow, index) => {
+//         const arrowDiv = document.createElement('div');
+//         arrowDiv.textContent = arrow;
+//         if (index === 0) {
+//             arrowDiv.classList.add('firstArrow');
+//             arrowDiv.classList.add('current');
+//         } else if (index === randomStratagemArrows.length - 1) {
+//             arrowDiv.classList.add('lastArrow');
+//         }
+//         container.appendChild(arrowDiv);
+//     });
+//     container.classList.add('container');
+//     return container;
+// }
+
 function createArrowDivs() {
     // Pull a new random stratagem from the stratagems list
-    const stratagemNames = Object.keys(stratagems);
-    let randomStratagemName = stratagemNames[Math.floor(Math.random() * stratagemNames.length)];
-    let randomStratagemArrows = stratagems[randomStratagemName];
-    
+
+    let randomStratagemArrows = roundStratagemList[stratagemID];
+
     const container = document.createElement('div');
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
@@ -73,7 +105,7 @@ function createArrowDivs() {
         if (index === 0) {
             arrowDiv.classList.add('firstArrow');
             arrowDiv.classList.add('current');
-        } else if (index === randomStratagemArrows.length-1) {
+        } else if (index === randomStratagemArrows.length - 1) {
             arrowDiv.classList.add('lastArrow');
         }
         container.appendChild(arrowDiv);
@@ -82,10 +114,12 @@ function createArrowDivs() {
     return container;
 }
 
+
+
 // Function to handle keydown events
 function handleKeyDown(e) {
-    if (secondsLeft>=0) {
-        if (!timeDisplay.classList.contains('startTimer')){
+    if (secondsLeft >= 0) {
+        if (!timeDisplay.classList.contains('startTimer')) {
             timeDisplay.classList.add('startTimer');
             timer();
         }
@@ -114,8 +148,13 @@ function handleKeyDown(e) {
                     document.body.removeChild(containerToRemove);
                     let container = createContainer();
                     document.body.appendChild(container);
-                    secondsLeft +=3;
-                    currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft/(59*Math.PI));
+                    secondsLeft += 3;
+                    if (stratagemID < roundStratagemList.length - 1) {
+                        stratagemID += 1;
+                    } else {
+                        console.log('round is finished');
+                    }
+                    currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
                     // timeDisplay.textContent = Number(timeDisplay.textContent.substring(timeDisplay.textContent.indexOf(':')+1,timeDisplay.textContent.length)) + 3;
                 }
