@@ -34,6 +34,7 @@ let currentRound = 1;
 let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemID = 0;
+let secondsLeft = 250;
 
 // Function to initialize the game
 function initGame() {
@@ -67,10 +68,8 @@ function recreateContainer() {
     document.body.removeChild(containerToRemove);
     let container = createContainer();
     document.body.appendChild(container);
-    stratagemNameDisplay.textContent = Object.keys(stratagems)[stratagemID];
+    stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
 }
-
-let secondsLeft = 2;
 
 function timer() {
     let timer = setInterval(function () {
