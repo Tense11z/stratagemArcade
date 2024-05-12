@@ -36,7 +36,7 @@ let currentRound = 1;
 let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemID = 0;
-let secondsLeft = 250;
+let secondsLeft = 25;
 
 // function to initialize the game
 function initGame() {
@@ -59,20 +59,19 @@ function startRound() {
     }
 }
 
-// function to create a new container
+// function to create a new container or recreate existing one
 function createContainer() {
-    const container = createArrowDivs();
-    container.classList.add('container');
-    return container;
-}
-
-// function to recreate container after stratagem sequence is entered correctly
-function recreateContainer() {
     let containerToRemove = document.querySelector('.container');
-    document.body.removeChild(containerToRemove);
-    let container = createContainer();
-    document.body.appendChild(container);
-    stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
+    if (containerToRemove != null) {
+        document.body.removeChild(containerToRemove);
+        let container = createContainer();
+        document.body.appendChild(container);
+        stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
+    } else {
+        const container = createArrowDivs();
+        container.classList.add('container');
+        return container;
+    }
 }
 
 //functions that creates timer for a round
@@ -137,7 +136,7 @@ function handleKeyDown(e) {
 
                 // Check if the current arrow div is the last arrow div
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    recreateContainer()
+                    createContainer()
                     secondsLeft += 3;
                     if (stratagemID < roundStratagemList.length - 1) {
                         stratagemID += 1;
@@ -145,7 +144,7 @@ function handleKeyDown(e) {
                         currentScore += stratagemID * 20;
                         stratagemID = 0;
                         currentRound += 1;
-                        recreateContainer();
+                        createContainer();
                         startRound();
                         createArrowDivs();
                     }
