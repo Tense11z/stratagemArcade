@@ -42,7 +42,7 @@ function initGame() {
     document.body.appendChild(container);
     const keydownListener = document.addEventListener('keydown', handleKeyDown)
     gameRound.textContent = currentRound;
-    stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
+    stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]); // doesnt work
     timeDisplay.textContent = secondsLeft;
     playerScore.textContent = currentScore;
 }
@@ -173,6 +173,7 @@ function handleKeyDown(e) {
                     }
                     currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
+                    gameRound.textContent = currentRound;
                     // timeDisplay.textContent = Number(timeDisplay.textContent.substring(timeDisplay.textContent.indexOf(':')+1,timeDisplay.textContent.length)) + 3;
                 }
             } else {
