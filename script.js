@@ -25,18 +25,20 @@ const stratagems = {
     'RL-77 Airburst Rocket Launcher': ['↓', '↑', '↑', '←', '→']
 };
 
+// html elements selectors
 gameRound = document.querySelector('.gameRound');
 stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
 timeDisplay = document.querySelector('.countdown');
 playerScore = document.querySelector('.playerScore');
 
+// initial state variables that are used accross multiple functions
 let currentRound = 1;
 let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemID = 0;
 let secondsLeft = 250;
 
-// Function to initialize the game
+// function to initialize the game
 function initGame() {
     startRound();
     const container = createContainer();
@@ -48,6 +50,7 @@ function initGame() {
     playerScore.textContent = currentScore;
 }
 
+// function to pull 6 stratagems in a round
 function startRound() {
     roundStratagemList = [];
     const stratagemNames = Object.keys(stratagems);
@@ -56,13 +59,14 @@ function startRound() {
     }
 }
 
-// Function to create a new container
+// function to create a new container
 function createContainer() {
     const container = createArrowDivs();
     container.classList.add('container');
     return container;
 }
 
+// function to recreate container after stratagem sequence is entered correctly
 function recreateContainer() {
     let containerToRemove = document.querySelector('.container');
     document.body.removeChild(containerToRemove);
@@ -71,6 +75,7 @@ function recreateContainer() {
     stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
 }
 
+//functions that creates timer for a round
 function timer() {
     let timer = setInterval(function () {
         timeDisplay.innerHTML = '00:' + secondsLeft;
@@ -84,32 +89,8 @@ function timer() {
 
 }
 
-// Function to create divs for each arrow
-// function createArrowDivs() {
-//     // Pull a new random stratagem from the stratagems list
-//     const stratagemNames = Object.keys(stratagems);
-//     let randomStratagemName = stratagemNames[Math.floor(Math.random() * stratagemNames.length)];
-//     let randomStratagemArrows = stratagems[randomStratagemName];
-
-//     const container = document.createElement('div');
-//     randomStratagemArrows.forEach((arrow, index) => {
-//         const arrowDiv = document.createElement('div');
-//         arrowDiv.textContent = arrow;
-//         if (index === 0) {
-//             arrowDiv.classList.add('firstArrow');
-//             arrowDiv.classList.add('current');
-//         } else if (index === randomStratagemArrows.length - 1) {
-//             arrowDiv.classList.add('lastArrow');
-//         }
-//         container.appendChild(arrowDiv);
-//     });
-//     container.classList.add('container');
-//     return container;
-// }
-
+// function that creates divs for each arrow in a stratagem sequence
 function createArrowDivs() {
-    // Pull a new random stratagem from the stratagems list
-
     let randomStratagemArrows = roundStratagemList[stratagemID];
 
     const container = document.createElement('div');
@@ -127,8 +108,6 @@ function createArrowDivs() {
     container.classList.add('container');
     return container;
 }
-
-
 
 // Function to handle keydown events
 function handleKeyDown(e) {
