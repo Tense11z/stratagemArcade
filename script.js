@@ -35,6 +35,7 @@ playerScore = document.querySelector('.playerScore');
 let currentRound = 1;
 let roundStratagemList = new Array();
 let currentScore = 0;
+let stratagemPerRoundAmount = 6
 let stratagemID = 0;
 let secondsLeft = 25;
 
@@ -54,9 +55,10 @@ function initGame() {
 function startRound() {
     roundStratagemList = [];
     const stratagemNames = Object.keys(stratagems);
-    for (let i = 0; i < 6; i += 1) {
+    for (let i = 0; i < stratagemPerRoundAmount; i += 1) {
         roundStratagemList.push(stratagems[stratagemNames[Math.floor(Math.random() * stratagemNames.length)]]);
     }
+    console.log(stratagemPerRoundAmount);
 }
 
 // function to create a new container or recreate existing one
@@ -144,6 +146,7 @@ function handleKeyDown(e) {
                         currentScore += stratagemID * 20;
                         stratagemID = 0;
                         currentRound += 1;
+                        stratagemPerRoundAmount += 1;
                         createContainer();
                         startRound();
                         createArrowDivs();
