@@ -25,11 +25,14 @@ const stratagems = {
     'RL-77 Airburst Rocket Launcher': ['↓', '↑', '↑', '←', '→']
 };
 
+gameRound = document.querySelector('.gameRound');
+stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
 timeDisplay = document.querySelector('.countdown');
 playerScore = document.querySelector('.playerScore');
-let currentScore = 0;
-let currentRound = 0;
+
+let currentRound = 1;
 let roundStratagemList = new Array();
+let currentScore = 0;
 let stratagemID = 0;
 
 // Function to initialize the game
@@ -37,7 +40,11 @@ function initGame() {
     startRound();
     const container = createContainer();
     document.body.appendChild(container);
-    const keydownListener = document.addEventListener('keydown', handleKeyDown);
+    const keydownListener = document.addEventListener('keydown', handleKeyDown)
+    gameRound.textContent = currentRound;
+    stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
+    timeDisplay.textContent = secondsLeft;
+    playerScore.textContent = currentScore;
 }
 
 function startRound() {
@@ -53,6 +60,14 @@ function createContainer() {
     const container = createArrowDivs();
     container.classList.add('container');
     return container;
+}
+
+function recreateContainer() {
+    let containerToRemove = document.querySelector('.container');
+    document.body.removeChild(containerToRemove);
+    let container = createContainer();
+    document.body.appendChild(container);
+    stratagemNameDisplay.textContent = Object.keys(stratagems)[stratagemID];
 }
 
 let secondsLeft = 2;
@@ -144,15 +159,17 @@ function handleKeyDown(e) {
 
                 // Check if the current arrow div is the last arrow div
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    let containerToRemove = document.querySelector('.container');
-                    document.body.removeChild(containerToRemove);
-                    let container = createContainer();
-                    document.body.appendChild(container);
+                    recreateContainer()
                     secondsLeft += 3;
                     if (stratagemID < roundStratagemList.length - 1) {
                         stratagemID += 1;
                     } else {
-                        console.log('round is finished');
+                        currentScore += stratagemID * 20;
+                        stratagemID = 0;
+                        currentRound += 1;
+                        recreateContainer();
+                        startRound();
+                        createArrowDivs();
                     }
                     currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
@@ -166,7 +183,6 @@ function handleKeyDown(e) {
             }
         }
     } else {
-
     }
 }
 
