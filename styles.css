@@ -2,6 +2,26 @@
     color: red;
 }
 
-/* .inGame {
+
+.startScreen {}
+
+
+.preRoundGetReadyScreen {
     display: none;
-} */
+}
+
+.inGameScreen {
+    display: none;
+}
+
+.gameScreen {
+    display: none;
+}
+
+.postRoundSummaryScreen {
+    display: none;
+}
+
+.gameOverLeaderboard {
+    display: none;
+}
