@@ -63,7 +63,7 @@ function startRound() {
 
 // function to create a new container or recreate existing one
 function createContainer() {
-    let containerToRemove = document.querySelector('.container');
+    let containerToRemove = document.querySelector('.gameScreen');
     if (containerToRemove != null) {
         document.body.removeChild(containerToRemove);
         let container = createContainer();
@@ -71,7 +71,7 @@ function createContainer() {
         stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
     } else {
         const container = createArrowDivs();
-        container.classList.add('container');
+        container.classList.add('gameScreen');
         return container;
     }
 }
@@ -106,7 +106,7 @@ function createArrowDivs() {
         }
         container.appendChild(arrowDiv);
     });
-    container.classList.add('container');
+    container.classList.add('gameScreen');
     return container;
 }
 
@@ -151,7 +151,7 @@ function handleKeyDown(e) {
                         startRound();
                         createArrowDivs();
                     }
-                    currentScore += document.querySelector('.container').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
+                    currentScore += document.querySelector('.gameScreen').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
                     gameRound.textContent = currentRound;
                     // timeDisplay.textContent = Number(timeDisplay.textContent.substring(timeDisplay.textContent.indexOf(':')+1,timeDisplay.textContent.length)) + 3;
