@@ -30,6 +30,7 @@ gameRound = document.querySelector('.gameRound');
 stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
 timeDisplay = document.querySelector('.countdown');
 playerScore = document.querySelector('.playerScore');
+startScreen = document.querySelector('.startScreen')
 
 // initial state variables that are used accross multiple functions
 let currentRound = 1;
@@ -187,5 +188,24 @@ function moveCurrentArrow(currentArrowDiv) {
     }
 }
 
+document.addEventListener('keydown', function (e) {
+    console.log('test')
+    const arrowKeyMap = {
+        '↓': 'ArrowDown',
+        '↑': 'ArrowUp',
+        '←': 'ArrowLeft',
+        '→': 'ArrowRight'
+    };
+    if (Object.values(arrowKeyMap).includes(e.key)) {
+        startScreen.style.display = 'none';
+
+    } else {
+        console.log(`${e.key} is not in keymap`)
+    }
+});
+
+
+
+
 // Initialize the game
-initGame();
+// initGame();
