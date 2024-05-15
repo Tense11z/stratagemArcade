@@ -34,16 +34,18 @@ playerScore = document.querySelector('.playerScore');
 startScreen = document.querySelector('.startScreen');
 preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
 inGameScreen = document.querySelector('.inGameScreen');
+postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
 //eventListeners
 const keydownListenerForMenu = document.addEventListener('keydown', handleKeyDownForMenu);
 const keydownListenerForGame = document.addEventListener('keydown', handleKeyDownForGame);
 // initial state variables that are used accross multiple functions
 let currentRound = 1;
+gameRound.textContent = `Round ${currentRound}`;
 let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemPerRoundAmount = 6
 let stratagemID = 0;
-let secondsLeft = 25;
+let secondsLeft = 250;
 
 
 function switchToGameEventListener() {
@@ -68,12 +70,11 @@ function initGame() {
     startRound();
     const container = createContainer();
     document.body.appendChild(container);
-    gameRound.textContent = currentRound;
     stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]); // doesnt work
     timeDisplay.textContent = secondsLeft;
     playerScore.textContent = currentScore;
-    gameScreen = document.querySelector('.gameScreen');
-    gameScreen.style.display = 'block';
+    // gameScreen = document.querySelector('.gameScreen');
+    // gameScreen.style.display = 'block';
 }
 
 // function to pull 6 stratagems in a round
@@ -169,17 +170,32 @@ function handleKeyDownForGame(e) {
                     if (stratagemID < roundStratagemList.length - 1) {
                         stratagemID += 1;
                     } else {
+                        postRoundSummaryScreen.style.display = 'block';
+                        document.addEventListener('keydown', handleKeyDownForGame);
+                        inGameScreen.style.display = 'none';
+                        document.querySelector('.gameScreen').style.display = 'none';
                         currentScore += stratagemID * 20;
                         stratagemID = 0;
                         currentRound += 1;
                         stratagemPerRoundAmount += 1;
-                        createContainer();
-                        startRound();
-                        createArrowDivs();
+
+                        postRoundTimeout = setTimeout(function () {
+                            postRoundSummaryScreen.style.display = 'none';
+                            preRoundGetReadyScreen.style.display = 'block';
+                            // Set second timeout inside the first timeout callback
+                            setTimeout(function () {
+                                preRoundGetReadyScreen.style.display = 'none';
+                                inGameScreen.style.display = 'block';
+                                document.querySelector('.gameScreen').style.display = 'block';
+                                createContainer();
+                                startRound();
+                                createArrowDivs();
+                            }, 2000);
+                        }, 3000);
                     }
                     currentScore += document.querySelector('.gameScreen').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
-                    gameRound.textContent = currentRound;
+                    gameRound.textContent = `Round ${currentRound}`;
                     // timeDisplay.textContent = Number(timeDisplay.textContent.substring(timeDisplay.textContent.indexOf(':')+1,timeDisplay.textContent.length)) + 3;
                 }
             } else {
