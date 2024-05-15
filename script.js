@@ -30,8 +30,13 @@ gameRound = document.querySelector('.gameRound');
 stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
 timeDisplay = document.querySelector('.countdown');
 playerScore = document.querySelector('.playerScore');
-startScreen = document.querySelector('.startScreen')
-
+//screens
+startScreen = document.querySelector('.startScreen');
+preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
+inGameScreen = document.querySelector('.inGameScreen');
+//eventListeners
+const keydownListenerForMenu = document.addEventListener('keydown', handleKeyDownForMenu);
+const keydownListenerForGame = document.addEventListener('keydown', handleKeyDownForGame);
 // initial state variables that are used accross multiple functions
 let currentRound = 1;
 let roundStratagemList = new Array();
@@ -40,16 +45,35 @@ let stratagemPerRoundAmount = 6
 let stratagemID = 0;
 let secondsLeft = 25;
 
+
+function switchToGameEventListener() {
+    document.removeEventListener('keydown', handleKeyDownForMenu);
+    document.addEventListener('keydown', handleKeyDownForGame);
+}
+
+function switchToMenuEventListener() {
+    document.removeEventListener('keydown', handleKeyDownForGame);
+    document.addEventListener('keydown', handleKeyDownForMenu);
+}
+
+function initMenu() {
+    startScreen.style.display = 'block';
+    switchToMenuEventListener()
+}
+
+
 // function to initialize the game
 function initGame() {
+    switchToGameEventListener()
     startRound();
     const container = createContainer();
     document.body.appendChild(container);
-    const keydownListener = document.addEventListener('keydown', handleKeyDown)
     gameRound.textContent = currentRound;
     stratagemNameDisplay.textContent = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]); // doesnt work
     timeDisplay.textContent = secondsLeft;
     playerScore.textContent = currentScore;
+    gameScreen = document.querySelector('.gameScreen');
+    gameScreen.style.display = 'block';
 }
 
 // function to pull 6 stratagems in a round
@@ -108,11 +132,12 @@ function createArrowDivs() {
         container.appendChild(arrowDiv);
     });
     container.classList.add('gameScreen');
+    container.style.display = 'block';
     return container;
 }
 
 // Function to handle keydown events
-function handleKeyDown(e) {
+function handleKeyDownForGame(e) {
     if (secondsLeft >= 0) {
         if (!timeDisplay.classList.contains('startTimer')) {
             timeDisplay.classList.add('startTimer');
@@ -188,7 +213,7 @@ function moveCurrentArrow(currentArrowDiv) {
     }
 }
 
-document.addEventListener('keydown', function (e) {
+function handleKeyDownForMenu(e) {
     console.log('test')
     const arrowKeyMap = {
         '↓': 'ArrowDown',
@@ -198,13 +223,18 @@ document.addEventListener('keydown', function (e) {
     };
     if (Object.values(arrowKeyMap).includes(e.key)) {
         startScreen.style.display = 'none';
-
+        preRoundGetReadyScreen.style.display = 'block';
+        setTimeout(function () {
+            preRoundGetReadyScreen.style.display = 'none';
+            inGameScreen.style.display = 'block';
+            initGame();
+        }, 2000);
     } else {
         console.log(`${e.key} is not in keymap`)
     }
-});
+};
 
-
+initMenu();
 
 
 // Initialize the game
