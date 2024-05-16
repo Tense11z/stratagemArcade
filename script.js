@@ -43,7 +43,7 @@ let currentRound = 1;
 gameRound.textContent = `Round ${currentRound}`;
 let roundStratagemList = new Array();
 let currentScore = 0;
-let stratagemPerRoundAmount = 6
+let stratagemPerRoundAmount = 2;
 let stratagemID = 0;
 let secondsLeft = 250;
 
@@ -165,10 +165,10 @@ function handleKeyDownForGame(e) {
 
                 // Check if the current arrow div is the last arrow div
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    createContainer()
                     secondsLeft += 3;
                     if (stratagemID < roundStratagemList.length - 1) {
                         stratagemID += 1;
+                        createContainer();
                     } else {
                         postRoundSummaryScreen.style.display = 'block';
                         document.addEventListener('keydown', handleKeyDownForGame);
