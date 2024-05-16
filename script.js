@@ -187,8 +187,8 @@ function handleKeyDownForGame(e) {
                                 preRoundGetReadyScreen.style.display = 'none';
                                 inGameScreen.style.display = 'block';
                                 document.querySelector('.gameScreen').style.display = 'block';
-                                createContainer();
                                 startRound();
+                                createContainer();
                                 createArrowDivs();
                             }, 2000);
                         }, 3000);
