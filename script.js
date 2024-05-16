@@ -35,6 +35,7 @@ startScreen = document.querySelector('.startScreen');
 preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
 inGameScreen = document.querySelector('.inGameScreen');
 postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
+gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
 //eventListeners
 const keydownListenerForMenu = document.addEventListener('keydown', handleKeyDownForMenu);
 const keydownListenerForGame = document.addEventListener('keydown', handleKeyDownForGame);
@@ -45,28 +46,30 @@ let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemPerRoundAmount = 2;
 let stratagemID = 0;
-let secondsLeft = 250;
+let secondsLeft = 5;
 
 
-function switchToGameEventListener() {
-    document.removeEventListener('keydown', handleKeyDownForMenu);
-    document.addEventListener('keydown', handleKeyDownForGame);
-}
+// function switchToGameEventListener() {
+//     document.removeEventListener('keydown', handleKeyDownForMenu);
+//     document.addEventListener('keydown', handleKeyDownForGame);
+// }
 
-function switchToMenuEventListener() {
-    document.removeEventListener('keydown', handleKeyDownForGame);
-    document.addEventListener('keydown', handleKeyDownForMenu);
-}
+// function switchToMenuEventListener() {
+//    document.removeEventListener('keydown', handleKeyDownForGame);
+//     document.addEventListener('keydown', handleKeyDownForMenu);
+// }
 
 function initMenu() {
+    gameOverLeaderboard.style.display = 'none';
+    document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
-    switchToMenuEventListener()
+    document.removeEventListener('keydown', handleKeyDownForGame);
 }
 
 
 // function to initialize the game
 function initGame() {
-    switchToGameEventListener()
+    document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     const container = createContainer();
     document.body.appendChild(container);
@@ -109,7 +112,14 @@ function timer() {
         secondsLeft--;
         if (secondsLeft < 0) {
             clearInterval(timer);
-            timeDisplay.textContent = 'Time is out';
+            console.log('Time is out');
+            gameOverLeaderboard.style.display = 'block';
+            document.removeEventListener('keydown', handleKeyDownForGame);
+            inGameScreen.style.display = 'none';
+            document.querySelector('.gameScreen').style.display = 'none';
+            setTimeout(function () {
+                initMenu();
+            }, 5000);
 
         }
     }, 1000)
@@ -171,7 +181,7 @@ function handleKeyDownForGame(e) {
                         createContainer();
                     } else {
                         postRoundSummaryScreen.style.display = 'block';
-                        document.addEventListener('keydown', handleKeyDownForGame);
+                        document.removeEventListener('keydown', handleKeyDownForGame);
                         inGameScreen.style.display = 'none';
                         document.querySelector('.gameScreen').style.display = 'none';
                         currentScore += stratagemID * 20;
@@ -190,6 +200,7 @@ function handleKeyDownForGame(e) {
                                 startRound();
                                 createContainer();
                                 createArrowDivs();
+                                document.addEventListener('keydown', handleKeyDownForGame);
                             }, 2000);
                         }, 3000);
                     }
@@ -208,6 +219,7 @@ function handleKeyDownForGame(e) {
     } else {
     }
 }
+
 
 // Function to move the current arrow div to the next arrow div
 function moveCurrentArrow(currentArrowDiv) {
@@ -240,6 +252,7 @@ function handleKeyDownForMenu(e) {
     if (Object.values(arrowKeyMap).includes(e.key)) {
         startScreen.style.display = 'none';
         preRoundGetReadyScreen.style.display = 'block';
+        document.removeEventListener('keydown', handleKeyDownForMenu);
         setTimeout(function () {
             preRoundGetReadyScreen.style.display = 'none';
             inGameScreen.style.display = 'block';
