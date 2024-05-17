@@ -44,7 +44,7 @@ let currentRound = 1;
 gameRound.textContent = `Round ${currentRound}`;
 let roundStratagemList = new Array();
 let currentScore = 0;
-let stratagemPerRoundAmount = 2;
+let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 let secondsLeft = 5;
 // Add a variable to store the interval ID
@@ -97,6 +97,7 @@ function initGame() {
     updateStratagemDisplay();
     const container = createContainer();
     document.body.appendChild(container);
+    currentScore = 0;
     timeDisplay.textContent = secondsLeft;
     playerScore.textContent = currentScore;
 }
@@ -164,7 +165,11 @@ function handleKeyDownForGame(e) {
 
                 // Check if the current arrow div is the last arrow div
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    secondsLeft += 3;
+                    if (secondsLeft !== 5) {
+                        secondsLeft += 5 - secondsLeft;
+                    } else {
+                        secondsLeft = 5;
+                    }
                     if (stratagemID < roundStratagemList.length - 1) {
                         stratagemID += 1;
                         updateStratagemDisplay();
