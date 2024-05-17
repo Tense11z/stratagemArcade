@@ -3,7 +3,9 @@
 }
 
 
-.startScreen {}
+.startScreen {
+    display: none;
+}
 
 
 .preRoundGetReadyScreen {
