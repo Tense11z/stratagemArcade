@@ -40,7 +40,6 @@ document.addEventListener('keydown', handleKeyDownForMenu);
 document.addEventListener('keydown', handleKeyDownForGame);
 // initial state variables that are used across multiple functions
 let currentRound = 1;
-gameRound.textContent = `Round ${currentRound}`;
 let roundStratagemList = [];
 let currentScore = 0;
 let stratagemPerRoundAmount = 6;
@@ -53,6 +52,10 @@ let timerInterval;
 let previousSecondsLeft = initialTime;
 
 timeBar.style.width = '100%';
+
+function displayRoundScore() {
+    gameRound.textContent = `Round ${currentRound}`;
+}
 
 function renderTimeBar() {
     let progressPercentage = (secondsLeft / initialTime) * 100;
@@ -69,14 +72,18 @@ function renderTimeBar() {
         timeBar.style.transition = 'width 1s linear'; // Enable linear transition for decrease
     }
     previousSecondsLeft = secondsLeft;
+    console.log(progressPercentage)
 }
 
 function timer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
     secondsLeft = initialTime;
     previousSecondsLeft = secondsLeft;
     timerInterval = setInterval(function () {
         timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
-        secondsLeft--;
+        secondsLeft -= 1;
         if (secondsLeft < 0) {
             clearInterval(timerInterval);
             console.log('Time is out');
@@ -85,6 +92,7 @@ function timer() {
             inGameScreen.style.display = 'none';
             document.querySelector('.gameScreen').style.display = 'none';
             setTimeout(function () {
+                currentRound = 1;
                 initMenu();
             }, 5000);
         }
@@ -103,20 +111,21 @@ function createContainer() {
 }
 
 function initGame() {
+    stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
     const container = createContainer();
     document.body.appendChild(container);
     currentScore = 0;
-    timeDisplay.textContent = '00:0' + secondsLeft;
+    timeDisplay.textContent = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
     playerScore.textContent = currentScore;
 }
 
 function startRound() {
     timeBar.style.width = '100%';
-    if (!timeDisplay.classList.contains('startTimer')) {
-        timeDisplay.classList.add('startTimer');
+    if (!timeBar.classList.contains('startTimer')) {
+        timeBar.classList.add('startTimer');
         timer();
     } else {
         timer();
@@ -168,7 +177,7 @@ function handleKeyDownForGame(e) {
                 moveCurrentArrow(currentArrowDiv);
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     if (secondsLeft !== 10) {
-                        secondsLeft += initialTime * 0.1;
+                        secondsLeft += initialTime * 0.10;
                     } else {
                         secondsLeft = 10;
                     }
@@ -215,7 +224,7 @@ function handleKeyDownForGame(e) {
 
                     currentScore += document.querySelector('.gameScreen').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
-                    gameRound.textContent = `Round ${currentRound}`;
+                    displayRoundScore();
                 }
             } else {
                 currentArrowDiv.classList.remove('current');
@@ -223,6 +232,8 @@ function handleKeyDownForGame(e) {
                 firstDiv.classList.add('current');
             }
         }
+    } else {
+
     }
 }
 
@@ -261,6 +272,7 @@ function handleKeyDownForMenu(e) {
 }
 
 function initMenu() {
+    displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
