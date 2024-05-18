@@ -1,13 +1,11 @@
 // arrows ← ↑ → ↓
 const stratagems = {
-    // type: backpacks
     'LIFT-850 Jump Pack': ['↓', '↑', '↑', '↓', '↑'],
     'B-1 Supply Pack': ['↓', '←', '↓', '↑', '↑', '↓'],
     'AX/LAS-5 "Guard Dog" Rover': ['↓', '↑', '←', '↑', '→', '→'],
     'SH-20 Ballistic Shield Backpack': ['↓', '←', '↓', '↓', '↑', '←'],
     'SH-32 Shield Generator Pack': ['↓', '↑', '←', '→', '←', '→'],
     'AX/AR-23 "Guard Dog"': ['↓', '↑', '←', '↑', '→', '↓'],
-    // type: supportWeapons
     'MG-43 Machine Gun': ['↓', '←', '↓', '↑', '→'],
     'APW-1 Anti-Materiel Rifle': ['↓', '←', '→', '↑', '↓'],
     'M-105 Stalwart': ['↓', '←', '↓', '↑', '↑', '←'],
@@ -26,46 +24,66 @@ const stratagems = {
 };
 
 // html elements selectors
-gameRound = document.querySelector('.gameRound');
-stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
-timeDisplay = document.querySelector('.countdown');
-playerScore = document.querySelector('.playerScore');
+let gameRound = document.querySelector('.gameRound');
+let stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
+let timeDisplay = document.querySelector('.countdown');
+let playerScore = document.querySelector('.playerScore');
+let timeBar = document.querySelector('.timeBar');
 //screens
-startScreen = document.querySelector('.startScreen');
-preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
-inGameScreen = document.querySelector('.inGameScreen');
-postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
-gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
+let startScreen = document.querySelector('.startScreen');
+let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
+let inGameScreen = document.querySelector('.inGameScreen');
+let postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
+let gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
 //eventListeners
-const keydownListenerForMenu = document.addEventListener('keydown', handleKeyDownForMenu);
-const keydownListenerForGame = document.addEventListener('keydown', handleKeyDownForGame);
-// initial state variables that are used accross multiple functions
+document.addEventListener('keydown', handleKeyDownForMenu);
+document.addEventListener('keydown', handleKeyDownForGame);
+// initial state variables that are used across multiple functions
 let currentRound = 1;
-gameRound.textContent = `Round ${currentRound}`;
-let roundStratagemList = new Array();
+let roundStratagemList = [];
 let currentScore = 0;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
-let secondsLeft = 5;
-// Add a variable to store the interval ID
+// timer & timeBar variables
+let initialTime = 10;
+let interval;
+let secondsLeft;
 let timerInterval;
+let previousSecondsLeft = initialTime;
 
+timeBar.style.width = '100%';
 
-// function switchToGameEventListener() {
-//     document.removeEventListener('keydown', handleKeyDownForMenu);
-//     document.addEventListener('keydown', handleKeyDownForGame);
-// }
+function displayRoundScore() {
+    gameRound.textContent = `Round ${currentRound}`;
+}
 
-// function switchToMenuEventListener() {
-//    document.removeEventListener('keydown', handleKeyDownForGame);
-//     document.addEventListener('keydown', handleKeyDownForMenu);
-// }
+function renderTimeBar() {
+    let progressPercentage = (secondsLeft / initialTime) * 100;
+    timeBar.style.width = progressPercentage + '%';
+    if (secondsLeft > previousSecondsLeft) {
+        timeBar.style.transition = 'none'; // Disable transition for immediate update
+        requestAnimationFrame(() => {
+            renderTimeBar(); // Force reflow to apply immediate width change
+            requestAnimationFrame(() => {
+                timeBar.style.transition = 'width 1s linear'; // Re-enable linear transition for decrease
+            });
+        });
+    } else {
+        timeBar.style.transition = 'width 1s linear'; // Enable linear transition for decrease
+    }
+    previousSecondsLeft = secondsLeft;
+    console.log(progressPercentage)
+}
 
 function timer() {
-    secondsLeft = 5;
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+    secondsLeft = initialTime;
+    previousSecondsLeft = secondsLeft;
     timerInterval = setInterval(function () {
         timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
-        secondsLeft--;
+        secondsLeft -= 1;
         if (secondsLeft < 0) {
             clearInterval(timerInterval);
             console.log('Time is out');
@@ -74,9 +92,11 @@ function timer() {
             inGameScreen.style.display = 'none';
             document.querySelector('.gameScreen').style.display = 'none';
             setTimeout(function () {
+                currentRound = 1;
                 initMenu();
             }, 5000);
         }
+        renderTimeBar();
     }, 1000);
 }
 
@@ -90,41 +110,39 @@ function createContainer() {
     return container;
 }
 
-// function to initialize the game
 function initGame() {
+    stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
     const container = createContainer();
     document.body.appendChild(container);
     currentScore = 0;
-    timeDisplay.textContent = secondsLeft;
+    timeDisplay.textContent = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
     playerScore.textContent = currentScore;
 }
 
-// function to pull stratagems for a round
 function startRound() {
-    if (!timeDisplay.classList.contains('startTimer')) {
-        timeDisplay.classList.add('startTimer');
+    timeBar.style.width = '100%';
+    if (!timeBar.classList.contains('startTimer')) {
+        timeBar.classList.add('startTimer');
         timer();
     } else {
         timer();
     }
     roundStratagemList = [];
     const stratagemNames = Object.keys(stratagems);
-    for (let i = 0; i < stratagemPerRoundAmount; i += 1) {
+    for (let i = 0; i < stratagemPerRoundAmount; i++) {
         roundStratagemList.push(stratagems[stratagemNames[Math.floor(Math.random() * stratagemNames.length)]]);
     }
     console.log(roundStratagemList); // for debugging
 }
 
-// Function to update the displayed stratagem name
 function updateStratagemDisplay() {
     const stratagemName = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
     stratagemNameDisplay.textContent = stratagemName;
 }
 
-// function that creates divs for each arrow in a stratagem sequence
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID];
     const container = document.createElement('div');
@@ -144,37 +162,39 @@ function createArrowDivs() {
     return container;
 }
 
-// Function to handle keydown events
 function handleKeyDownForGame(e) {
     if (secondsLeft >= 0) {
-        // Get the current arrow div
         const currentArrowDiv = document.querySelector('.current');
         if (currentArrowDiv) {
-            // Get the text content of the current arrow div
             const currentArrow = currentArrowDiv.textContent;
-            // Map arrow directions to their corresponding key names
             const arrowKeyMap = {
                 '↓': 'ArrowDown',
                 '↑': 'ArrowUp',
                 '←': 'ArrowLeft',
                 '→': 'ArrowRight'
             };
-            // Check if the pressed key matches the current arrow direction
             if (e.key === arrowKeyMap[currentArrow]) {
                 moveCurrentArrow(currentArrowDiv);
-
-                // Check if the current arrow div is the last arrow div
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    if (secondsLeft !== 5) {
-                        secondsLeft += 5 - secondsLeft;
+                    if (secondsLeft !== 10) {
+                        secondsLeft += initialTime * 0.10;
                     } else {
-                        secondsLeft = 5;
+                        secondsLeft = 10;
                     }
+                    renderTimeBar(); // Update progress bar immediately after changing secondsLeft
+                    requestAnimationFrame(() => {
+                        renderTimeBar(); // Force reflow to apply immediate width change
+                        requestAnimationFrame(() => {
+                            timeBar.style.transition = 'width 1s linear'; // Re-enable linear transition for decrease
+                        });
+                    });
+
                     if (stratagemID < roundStratagemList.length - 1) {
-                        stratagemID += 1;
+                        stratagemID++;
                         updateStratagemDisplay();
                         const container = createContainer();
                         document.body.appendChild(container);
+
                     } else {
                         clearInterval(timerInterval);
                         postRoundSummaryScreen.style.display = 'block';
@@ -183,10 +203,10 @@ function handleKeyDownForGame(e) {
                         document.querySelector('.gameScreen').style.display = 'none';
                         currentScore += stratagemID * 20;
                         stratagemID = 0;
-                        currentRound += 1;
-                        stratagemPerRoundAmount += 1;
+                        currentRound++;
+                        stratagemPerRoundAmount++;
 
-                        postRoundTimeout = setTimeout(function () {
+                        setTimeout(function () {
                             postRoundSummaryScreen.style.display = 'none';
                             preRoundGetReadyScreen.style.display = 'block';
                             setTimeout(function () {
@@ -198,27 +218,25 @@ function handleKeyDownForGame(e) {
                                 const container = createContainer();
                                 document.body.appendChild(container);
                                 document.addEventListener('keydown', handleKeyDownForGame);
-                                // secondsLeft = 5;
-                                // timeDisplay.textContent = secondsLeft;
-                                // timeDisplay.textContent = '00:0' + secondsLeft;
                             }, 2000);
                         }, 3000);
                     }
+
                     currentScore += document.querySelector('.gameScreen').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
-                    gameRound.textContent = `Round ${currentRound}`;
+                    displayRoundScore();
                 }
             } else {
-                // If incorrect key is pressed, reset to the first arrow div
                 currentArrowDiv.classList.remove('current');
                 const firstDiv = document.querySelector('.firstArrow');
                 firstDiv.classList.add('current');
             }
         }
+    } else {
+
     }
 }
 
-// Function to move the current arrow div to the next arrow div
 function moveCurrentArrow(currentArrowDiv) {
     if (currentArrowDiv) {
         currentArrowDiv.classList.remove('current');
@@ -233,7 +251,6 @@ function moveCurrentArrow(currentArrowDiv) {
 }
 
 function handleKeyDownForMenu(e) {
-    console.log('test');
     const arrowKeyMap = {
         '↓': 'ArrowDown',
         '↑': 'ArrowUp',
@@ -255,6 +272,7 @@ function handleKeyDownForMenu(e) {
 }
 
 function initMenu() {
+    displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
@@ -262,9 +280,3 @@ function initMenu() {
 }
 
 initMenu();
-
-
-
-// Initialize the game
-// initGame();
-//functions that creates timer for a round
