@@ -26,16 +26,17 @@ const stratagems = {
 };
 
 // html elements selectors
-gameRound = document.querySelector('.gameRound');
-stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
-timeDisplay = document.querySelector('.countdown');
-playerScore = document.querySelector('.playerScore');
+let gameRound = document.querySelector('.gameRound');
+let stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
+let timeDisplay = document.querySelector('.countdown');
+let playerScore = document.querySelector('.playerScore');
+let timeBar = document.querySelector('.timeBar');
 //screens
-startScreen = document.querySelector('.startScreen');
-preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
-inGameScreen = document.querySelector('.inGameScreen');
-postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
-gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
+let startScreen = document.querySelector('.startScreen');
+let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
+let inGameScreen = document.querySelector('.inGameScreen');
+let postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
+let gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
 //eventListeners
 const keydownListenerForMenu = document.addEventListener('keydown', handleKeyDownForMenu);
 const keydownListenerForGame = document.addEventListener('keydown', handleKeyDownForGame);
@@ -46,9 +47,12 @@ let roundStratagemList = new Array();
 let currentScore = 0;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
-let secondsLeft = 5;
-// Add a variable to store the interval ID
+// timer & timeBar variables
+let initialTime = 5;
+let interval;
+let secondsLeft;
 let timerInterval;
+timeBar.style.width = 100 + '%'
 
 
 // function switchToGameEventListener() {
@@ -60,6 +64,11 @@ let timerInterval;
 //    document.removeEventListener('keydown', handleKeyDownForGame);
 //     document.addEventListener('keydown', handleKeyDownForMenu);
 // }
+
+function renderTimeBar() {
+    let progressPercentage = (secondsLeft / initialTime) * 100;
+    timeBar.style.width = progressPercentage + '%';
+}
 
 function timer() {
     secondsLeft = 5;
@@ -77,6 +86,7 @@ function timer() {
                 initMenu();
             }, 5000);
         }
+        renderTimeBar();
     }, 1000);
 }
 
