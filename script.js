@@ -60,19 +60,8 @@ function displayRoundScore() {
 function renderTimeBar() {
     let progressPercentage = (secondsLeft / initialTime) * 100;
     timeBar.style.width = progressPercentage + '%';
-    if (secondsLeft > previousSecondsLeft) {
-        timeBar.style.transition = 'none'; // Disable transition for immediate update
-        requestAnimationFrame(() => {
-            renderTimeBar(); // Force reflow to apply immediate width change
-            requestAnimationFrame(() => {
-                timeBar.style.transition = 'width 1s linear'; // Re-enable linear transition for decrease
-            });
-        });
-    } else {
-        timeBar.style.transition = 'width 1s linear'; // Enable linear transition for decrease
-    }
+    timeBar.style.transition = 'width 0.1s linear';
     previousSecondsLeft = secondsLeft;
-    console.log(progressPercentage)
 }
 
 function timer() {
@@ -81,10 +70,13 @@ function timer() {
     }
     secondsLeft = initialTime;
     previousSecondsLeft = secondsLeft;
+
     timerInterval = setInterval(function () {
-        timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
-        secondsLeft -= 1;
-        if (secondsLeft < 0) {
+        if (secondsLeft >= 0) {
+            timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
+            secondsLeft -= 0.1; // Decrease by 0.1 for smoother transition
+            renderTimeBar();
+        } else {
             clearInterval(timerInterval);
             console.log('Time is out');
             gameOverLeaderboard.style.display = 'block';
@@ -96,8 +88,7 @@ function timer() {
                 initMenu();
             }, 5000);
         }
-        renderTimeBar();
-    }, 1000);
+    }, 100); // Update every 100ms for a smooth transition
 }
 
 function createContainer() {
@@ -185,7 +176,7 @@ function handleKeyDownForGame(e) {
                     requestAnimationFrame(() => {
                         renderTimeBar(); // Force reflow to apply immediate width change
                         requestAnimationFrame(() => {
-                            timeBar.style.transition = 'width 1s linear'; // Re-enable linear transition for decrease
+                            timeBar.style.transition = 'width 0.1s linear'; // Re-enable linear transition for decrease
                         });
                     });
 
