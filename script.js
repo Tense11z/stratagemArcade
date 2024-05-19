@@ -33,6 +33,7 @@ let roundBonusElem = document.querySelector('.roundBonusValue');
 let timeBonusElem = document.querySelector('.timeBonusValue');
 let perfectRoundBonusElem = document.querySelector('.perfectRoundBonusValue');
 let totalScoreValueElem = document.querySelector('.totalScoreValue');
+let playerFinalScoreElem = document.querySelector('.playerFinalScore')
 //screens
 let startScreen = document.querySelector('.startScreen');
 let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
@@ -87,6 +88,7 @@ function timer() {
         } else {
             clearInterval(timerInterval);
             console.log('Time is out');
+            playerFinalScoreElem.textContent = currentScore;
             gameOverLeaderboard.style.display = 'block';
             document.removeEventListener('keydown', handleKeyDownForGame);
             inGameScreen.style.display = 'none';
@@ -110,7 +112,7 @@ function createContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 2;
+    stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
@@ -198,7 +200,7 @@ function handleKeyDownForGame(e) {
                 moveCurrentArrow(currentArrowDiv);
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     if (secondsLeft !== 10) {
-                        secondsLeft += initialTime * 0.10;
+                        secondsLeft += initialTime * 0.05;
                     } else {
                         secondsLeft = 10;
                     }
