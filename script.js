@@ -29,6 +29,11 @@ let stratagemNameDisplay = document.querySelector('.stratagemNameDisplay');
 let timeDisplay = document.querySelector('.countdown');
 let playerScore = document.querySelector('.playerScore');
 let timeBar = document.querySelector('.timeBar');
+let roundBonusElem = document.querySelector('.roundBonusValue');
+let timeBonusElem = document.querySelector('.timeBonusValue');
+let perfectRoundBonusElem = document.querySelector('.perfectRoundBonusValue');
+let totalScoreValueElem = document.querySelector('.totalScoreValue');
+let playerFinalScoreElem = document.querySelector('.playerFinalScore')
 //screens
 let startScreen = document.querySelector('.startScreen');
 let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
@@ -42,6 +47,10 @@ document.addEventListener('keydown', handleKeyDownForGame);
 let currentRound = 1;
 let roundStratagemList = [];
 let currentScore = 0;
+let roundBonusValue;
+let timeBonusValue;
+let perfectRoundFlag = true;
+let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
@@ -79,6 +88,7 @@ function timer() {
         } else {
             clearInterval(timerInterval);
             console.log('Time is out');
+            playerFinalScoreElem.textContent = currentScore;
             gameOverLeaderboard.style.display = 'block';
             document.removeEventListener('keydown', handleKeyDownForGame);
             inGameScreen.style.display = 'none';
@@ -129,6 +139,28 @@ function startRound() {
     console.log(roundStratagemList); // for debugging
 }
 
+function calculatePlayerScore() {
+    roundBonusValue = 75;
+    if (currentRound !== 1) {
+        roundBonusValue += 25;
+    }
+    if (!perfectRoundFlag) {
+        perfectRoundBonusValue = 0;
+        perfectRoundFlag = true;
+    } else {
+        perfectRoundBonusValue = 100;
+    }
+    timeBonusValue = Number(timeBar.style.width.replace('%', ''));
+    currentScore += roundBonusValue + perfectRoundBonusValue + timeBonusValue;
+
+    timeBonusElem.textContent = timeBonusValue;
+    roundBonusElem.textContent = roundBonusValue;
+    perfectRoundBonusElem.textContent = perfectRoundBonusValue;
+    totalScoreValueElem.textContent = currentScore;
+
+    console.log(timeBonusValue, roundBonusValue, perfectRoundBonusValue, currentScore)
+}
+
 function updateStratagemDisplay() {
     const stratagemName = Object.keys(stratagems).find(key => stratagems[key] === roundStratagemList[stratagemID]);
     stratagemNameDisplay.textContent = stratagemName;
@@ -168,7 +200,7 @@ function handleKeyDownForGame(e) {
                 moveCurrentArrow(currentArrowDiv);
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     if (secondsLeft !== 10) {
-                        secondsLeft += initialTime * 0.10;
+                        secondsLeft += initialTime * 0.05;
                     } else {
                         secondsLeft = 10;
                     }
@@ -181,18 +213,22 @@ function handleKeyDownForGame(e) {
                     });
 
                     if (stratagemID < roundStratagemList.length - 1) {
+                        currentScore += roundStratagemList[stratagemID].length * 5;
                         stratagemID++;
                         updateStratagemDisplay();
                         const container = createContainer();
                         document.body.appendChild(container);
 
                     } else {
+                        currentScore += roundStratagemList[stratagemID].length * 5;
+                        console.log(currentScore);
+                        calculatePlayerScore();
+
                         clearInterval(timerInterval);
                         postRoundSummaryScreen.style.display = 'block';
                         document.removeEventListener('keydown', handleKeyDownForGame);
                         inGameScreen.style.display = 'none';
                         document.querySelector('.gameScreen').style.display = 'none';
-                        currentScore += stratagemID * 20;
                         stratagemID = 0;
                         currentRound++;
                         stratagemPerRoundAmount++;
@@ -212,8 +248,6 @@ function handleKeyDownForGame(e) {
                             }, 2000);
                         }, 3000);
                     }
-
-                    currentScore += document.querySelector('.gameScreen').getElementsByTagName('div').length * 100 * (secondsLeft / (59 * Math.PI));
                     playerScore.textContent = Math.round(currentScore);
                     displayRoundScore();
                 }
@@ -221,6 +255,7 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.remove('current');
                 const firstDiv = document.querySelector('.firstArrow');
                 firstDiv.classList.add('current');
+                perfectRoundFlag = false;
             }
         }
     } else {
