@@ -1,3 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    background-color: #4c4a4f;
+    color: #d8d5d8;
+    font-family: sans-serif;
+    border-top: 10px solid #008080;
+    position: relative;
+}
+
 .current {
     color: red;
 }
