@@ -5,15 +5,14 @@
 }
 
 body {
+    color: white;
     background-color: #4c4a4f;
     font-family: sans-serif;
     border-top: 10px solid #008080;
     position: relative;
 }
 
-.current {
-    color: red;
-}
+.current {}
 
 
 .startScreen {
@@ -37,7 +36,7 @@ body {
 .timeBar {
     width: 100;
     height: 30px;
-    background-color: #e3d997;
+    background-color: #ffff66;
     transition-timing-function: linear;
 }
 
@@ -47,12 +46,15 @@ body {
     height: 100vh;
 }
 
+.stratagemNameDisplay {
+    color: black;
+}
+
 .gameScreen .stratagemArrow {}
 
 
 .passed img {
-    filter: hue-rotate(0deg) brightness(1.2) contrast(1.2) saturate(1.2);
-    background-color: red;
+    filter: sepia(1) saturate(4) brightness(2);
 }
 
 .postRoundSummaryScreen {

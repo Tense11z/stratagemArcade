@@ -30,7 +30,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 1000;
+let initialTime = 10;
 let interval;
 let secondsLeft;
 let timerInterval;
@@ -80,6 +80,12 @@ function timer() {
             timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
             secondsLeft -= 0.1; // Decrease by 0.1 for smoother transition
             renderTimeBar();
+            if (secondsLeft < (initialTime / 100 * 30)) {
+                timeBar.style.backgroundColor = '#ff6666';
+            } else {
+                timeBar.style.backgroundColor = '#ffff66';
+            }
+
         } else {
             clearInterval(timerInterval);
             console.log('Time is out');
@@ -206,9 +212,9 @@ function handleKeyDownForGame(e) {
             };
             if (e.key === arrowKeyMap[currentArrow]) {
                 currentArrowDiv.classList.add('passed');
-                moveCurrentArrow(currentArrowDiv);
+                moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    if (secondsLeft !== 10) {
+                    if (secondsLeft >= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
                         secondsLeft = 10;
@@ -224,20 +230,23 @@ function handleKeyDownForGame(e) {
                     if (stratagemID < roundStratagemList.length - 1) {
                         currentScore += roundStratagemList[stratagemID].length * 5;
                         stratagemID++;
-                        updateStratagemDisplay();
-                        const container = createContainer();
-                        document.body.appendChild(container);
+                        setTimeout(function () {
+                            updateStratagemDisplay();
+                            const container = createContainer();
+                            document.body.appendChild(container);
+                        }, 100)
 
                     } else {
                         currentScore += roundStratagemList[stratagemID].length * 5;
                         console.log(currentScore);
                         calculatePlayerScore();
-
                         clearInterval(timerInterval);
-                        postRoundSummaryScreen.style.display = 'block';
-                        document.removeEventListener('keydown', handleKeyDownForGame);
-                        inGameScreen.style.display = 'none';
-                        document.querySelector('.gameScreen').style.display = 'none';
+                        setTimeout(function () {
+                            postRoundSummaryScreen.style.display = 'block';
+                            document.removeEventListener('keydown', handleKeyDownForGame);
+                            inGameScreen.style.display = 'none';
+                            document.querySelector('.gameScreen').style.display = 'none';
+                        }, 100)
                         stratagemID = 0;
                         currentRound++;
                         stratagemPerRoundAmount++;
@@ -264,6 +273,10 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.remove('current');
                 const firstDiv = document.querySelector('.firstArrow');
                 firstDiv.classList.add('current');
+                arrowPassedList = document.querySelector('.gameScreen').getElementsByClassName('stratagemArrow');
+                for (let i = 0; i < arrowPassedList.length; i += 1) {
+                    arrowPassedList[i].classList.remove('passed');
+                }
                 perfectRoundFlag = false;
             }
         }
@@ -312,6 +325,7 @@ function initMenu() {
     document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
     document.removeEventListener('keydown', handleKeyDownForGame);
+    timeBar.style.backgroundColor = '#ffff66';
 }
 
 //this function removes page scrolling on the arrow keys. https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
