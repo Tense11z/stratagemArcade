@@ -30,13 +30,19 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 10;
+let initialTime = 1000;
 let interval;
 let secondsLeft;
 let timerInterval;
 let previousSecondsLeft = initialTime;
-
 let stratagems;
+//mapping arrows to the pictures
+const symbolToImageMap = {
+    '↓': '/arrows/arrowD.png',
+    '←': '/arrows/arrowL.png',
+    '↑': '/arrows/arrowU.png',
+    '→': '/arrows/arrowR.png'
+};
 
 
 async function fetchStratagems() {
@@ -158,19 +164,32 @@ function updateStratagemDisplay() {
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID];
     const container = document.createElement('div');
+
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
-        arrowDiv.textContent = arrow;
+        arrowDiv.classList.add('stratagemArrow');
+
+        // Create an image element for the arrow
+        const arrowImg = document.createElement('img');
+        arrowImg.src = symbolToImageMap[arrow];
+        arrowImg.alt = arrow;
+
         if (index === 0) {
             arrowDiv.classList.add('firstArrow');
             arrowDiv.classList.add('current');
         } else if (index === randomStratagemArrows.length - 1) {
             arrowDiv.classList.add('lastArrow');
         }
+
+        // Append the image to the arrow div
+        arrowDiv.appendChild(arrowImg);
+
+        // Append the arrow div to the container
         container.appendChild(arrowDiv);
     });
+
     container.classList.add('gameScreen');
-    container.style.display = 'block';
+    container.style.display = 'flex';
     return container;
 }
 
@@ -178,7 +197,7 @@ function handleKeyDownForGame(e) {
     if (secondsLeft >= 0) {
         const currentArrowDiv = document.querySelector('.current');
         if (currentArrowDiv) {
-            const currentArrow = currentArrowDiv.textContent;
+            const currentArrow = currentArrowDiv.getElementsByTagName('img')[0].alt;
             const arrowKeyMap = {
                 '↓': 'ArrowDown',
                 '↑': 'ArrowUp',
@@ -186,6 +205,7 @@ function handleKeyDownForGame(e) {
                 '→': 'ArrowRight'
             };
             if (e.key === arrowKeyMap[currentArrow]) {
+                currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv);
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     if (secondsLeft !== 10) {
@@ -294,3 +314,12 @@ function initMenu() {
     document.removeEventListener('keydown', handleKeyDownForGame);
 }
 
+//this function removes page scrolling on the arrow keys. https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+let arrow_keys_handler = function (e) {
+    switch (e.code) {
+        case "ArrowUp": case "ArrowDown": case "ArrowLeft": case "ArrowRight":
+        case "Space": e.preventDefault(); break;
+        default: break; // do not block other keys
+    }
+};
+window.addEventListener("keydown", arrow_keys_handler, false);

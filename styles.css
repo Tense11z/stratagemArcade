@@ -6,7 +6,6 @@
 
 body {
     background-color: #4c4a4f;
-    color: #d8d5d8;
     font-family: sans-serif;
     border-top: 10px solid #008080;
     position: relative;
@@ -43,7 +42,17 @@ body {
 }
 
 .gameScreen {
-    display: none;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.gameScreen .stratagemArrow {}
+
+
+.passed img {
+    filter: hue-rotate(0deg) brightness(1.2) contrast(1.2) saturate(1.2);
+    background-color: red;
 }
 
 .postRoundSummaryScreen {
