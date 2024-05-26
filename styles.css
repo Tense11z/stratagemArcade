@@ -47,9 +47,10 @@ body {
 
 
 .stratagemImageContainer {
+    display: flexbox;
     position: relative;
     bottom: 200px;
-    left: -500px;
+    left: -730px;
 }
 
 .stratagemImage {
@@ -69,9 +70,13 @@ body {
     border-color: #ffff66;
 }
 
+.passedImg {
+    visible: none;
+}
+
 .stratagemNameDisplay {
     color: black;
-    margin-top: 200px;
+    margin-top: 150px;
 }
 
 .stratagemNameDisplay,

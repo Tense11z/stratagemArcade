@@ -30,7 +30,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 1000;
+let initialTime = 10;
 let interval;
 let secondsLeft;
 let timerInterval;
@@ -72,9 +72,13 @@ function lowAmountOfTimeUIRecolor() {
     if (secondsLeft < (initialTime / 100 * 30)) {
         timeBar.style.backgroundColor = '#ff6666';
         stratagemNameDisplay.style.backgroundColor = '#ff6666';
+        document.querySelector('.currentImg').style.borderColor = '#ff6666';
     } else {
         timeBar.style.backgroundColor = '#ffff66';
         stratagemNameDisplay.style.backgroundColor = '#ffff66';
+        if (document.querySelector('.currentImg') != null) {
+            document.querySelector('.currentImg').style.borderColor = '#ffff66';
+        }
     }
 }
 
@@ -118,9 +122,8 @@ function createContainer() {
     container.classList.add('gameScreen');
 
     // Create and append stratagem image container
-    const stratagemImageContainer = createStratagemImageContainer();
+    const stratagemImageContainer = createStratagemImageContainer(stratagemID);
     container.appendChild(stratagemImageContainer);
-
     return container;
 }
 
@@ -180,21 +183,27 @@ function updateStratagemDisplay() {
     stratagemNameDisplay.textContent = stratagemName;
 }
 
-function createStratagemImageContainer() {
+function createStratagemImageContainer(currentIndex) {
     const containerStratagemImg = document.createElement('div');
     containerStratagemImg.classList.add('stratagemImageContainer');
 
     // Iterate over all stratagems in the roundStratagemList
+    if (stratagemID !== 0) {
+        delete roundStratagemList[stratagemID - 1];
+    }
     roundStratagemList.forEach((stratagem, index) => {
         let stratagemImagePath = stratagem['image'];
         const stratagemImg = document.createElement('img');
         stratagemImg.classList.add(`stratagemImage`)
         stratagemImg.src = stratagemImagePath;
         stratagemImg.alt = "Stratagem Image";
+        if (currentIndex === index) {
+            stratagemImg.classList.add('currentImg');
+        }
         if (index === 0) {
             stratagemImg.classList.add('firstImg');
-            stratagemImg.classList.add('currentImg');
-        } else if (index === roundStratagemList.length - 1) {
+        }
+        else if (index === roundStratagemList.length - 1) {
             stratagemImg.classList.add('lastImg');
         }
 
@@ -254,6 +263,8 @@ function handleKeyDownForGame(e) {
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     // document.querySelector('stratagemImageContainer').
+                    const currentImage = document.querySelector('.currentImg');
+                    moveCurrentImg(currentImage);
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
@@ -335,6 +346,20 @@ function moveCurrentArrow(currentArrowDiv) {
             const firstDiv = document.querySelector('.firstArrow');
             firstDiv.classList.add('current');
         }
+    }
+}
+
+function moveCurrentImg(currentImage) {
+    if (currentImage) {
+        currentImage.classList.remove('currentImg');
+        const nextImg = currentImage.nextElementSibling;
+        if (nextImg) {
+            nextImg.classList.add('currentImg');
+        }
+        //  else {
+        //     const firstImage = document.querySelector('.firstImg');
+        //     firstImage.classList.add('currentImg');
+        // }
     }
 }
 
