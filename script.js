@@ -35,8 +35,14 @@ let interval;
 let secondsLeft;
 let timerInterval;
 let previousSecondsLeft = initialTime;
-
 let stratagems;
+//mapping arrows to the pictures
+const symbolToImageMap = {
+    '↓': '/arrows/arrowD.png',
+    '←': '/arrows/arrowL.png',
+    '↑': '/arrows/arrowU.png',
+    '→': '/arrows/arrowR.png'
+};
 
 
 async function fetchStratagems() {
@@ -62,18 +68,31 @@ function renderTimeBar() {
     previousSecondsLeft = secondsLeft;
 }
 
+function lowAmountOfTimeUIRecolor() {
+    if (secondsLeft < (initialTime / 100 * 30)) {
+        timeBar.style.backgroundColor = '#ff6666';
+        stratagemNameDisplay.style.backgroundColor = '#ff6666';
+    } else {
+        timeBar.style.backgroundColor = '#ffff66';
+        stratagemNameDisplay.style.backgroundColor = '#ffff66';
+    }
+}
+
 function timer() {
     if (timerInterval) {
         clearInterval(timerInterval);
     }
     secondsLeft = initialTime;
     previousSecondsLeft = secondsLeft;
+    lowAmountOfTimeUIRecolor();
 
     timerInterval = setInterval(function () {
         if (secondsLeft >= 0) {
             timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
             secondsLeft -= 0.1; // Decrease by 0.1 for smoother transition
             renderTimeBar();
+            lowAmountOfTimeUIRecolor();
+
         } else {
             clearInterval(timerInterval);
             console.log('Time is out');
@@ -158,19 +177,32 @@ function updateStratagemDisplay() {
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID]['arrows'];
     const container = document.createElement('div');
+
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
-        arrowDiv.textContent = arrow;
+        arrowDiv.classList.add('stratagemArrow');
+
+        // Create an image element for the arrow
+        const arrowImg = document.createElement('img');
+        arrowImg.src = symbolToImageMap[arrow];
+        arrowImg.alt = arrow;
+
         if (index === 0) {
             arrowDiv.classList.add('firstArrow');
             arrowDiv.classList.add('current');
         } else if (index === randomStratagemArrows.length - 1) {
             arrowDiv.classList.add('lastArrow');
         }
+
+        // Append the image to the arrow div
+        arrowDiv.appendChild(arrowImg);
+
+        // Append the arrow div to the container
         container.appendChild(arrowDiv);
     });
+
     container.classList.add('gameScreen');
-    container.style.display = 'block';
+    container.style.display = 'flex';
     return container;
 }
 
@@ -178,7 +210,7 @@ function handleKeyDownForGame(e) {
     if (secondsLeft >= 0) {
         const currentArrowDiv = document.querySelector('.current');
         if (currentArrowDiv) {
-            const currentArrow = currentArrowDiv.textContent;
+            const currentArrow = currentArrowDiv.getElementsByTagName('img')[0].alt;
             const arrowKeyMap = {
                 '↓': 'ArrowDown',
                 '↑': 'ArrowUp',
@@ -186,9 +218,10 @@ function handleKeyDownForGame(e) {
                 '→': 'ArrowRight'
             };
             if (e.key === arrowKeyMap[currentArrow]) {
-                moveCurrentArrow(currentArrowDiv);
+                currentArrowDiv.classList.add('passed');
+                moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    if (secondsLeft !== 10) {
+                    if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
                         secondsLeft = 10;
@@ -204,20 +237,23 @@ function handleKeyDownForGame(e) {
                     if (stratagemID < roundStratagemList.length - 1) {
                         currentScore += roundStratagemList[stratagemID].length * 5;
                         stratagemID++;
-                        updateStratagemDisplay();
-                        const container = createContainer();
-                        document.body.appendChild(container);
+                        setTimeout(function () {
+                            updateStratagemDisplay();
+                            const container = createContainer();
+                            document.body.appendChild(container);
+                        }, 100)
 
                     } else {
                         currentScore += roundStratagemList[stratagemID].length * 5;
                         console.log(currentScore);
                         calculatePlayerScore();
-
                         clearInterval(timerInterval);
-                        postRoundSummaryScreen.style.display = 'block';
-                        document.removeEventListener('keydown', handleKeyDownForGame);
-                        inGameScreen.style.display = 'none';
-                        document.querySelector('.gameScreen').style.display = 'none';
+                        setTimeout(function () {
+                            postRoundSummaryScreen.style.display = 'block';
+                            document.removeEventListener('keydown', handleKeyDownForGame);
+                            inGameScreen.style.display = 'none';
+                            document.querySelector('.gameScreen').style.display = 'none';
+                        }, 100)
                         stratagemID = 0;
                         currentRound++;
                         stratagemPerRoundAmount++;
@@ -244,6 +280,10 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.remove('current');
                 const firstDiv = document.querySelector('.firstArrow');
                 firstDiv.classList.add('current');
+                arrowPassedList = document.querySelector('.gameScreen').getElementsByClassName('stratagemArrow');
+                for (let i = 0; i < arrowPassedList.length; i += 1) {
+                    arrowPassedList[i].classList.remove('passed');
+                }
                 perfectRoundFlag = false;
             }
         }
@@ -292,5 +332,15 @@ function initMenu() {
     document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
     document.removeEventListener('keydown', handleKeyDownForGame);
+    // lowAmountOfTimeUIRecolor()
 }
 
+//this function removes page scrolling on the arrow keys. https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+let arrow_keys_handler = function (e) {
+    switch (e.code) {
+        case "ArrowUp": case "ArrowDown": case "ArrowLeft": case "ArrowRight":
+        case "Space": e.preventDefault(); break;
+        default: break; // do not block other keys
+    }
+};
+window.addEventListener("keydown", arrow_keys_handler, false);
