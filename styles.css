@@ -50,6 +50,11 @@ body {
     color: black;
 }
 
+.stratagemNameDisplay,
+.timeBar {
+    background-color: #ffff66;
+}
+
 .gameScreen .stratagemArrow {}
 
 

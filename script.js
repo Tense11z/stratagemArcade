@@ -68,23 +68,30 @@ function renderTimeBar() {
     previousSecondsLeft = secondsLeft;
 }
 
+function lowAmountOfTimeUIRecolor() {
+    if (secondsLeft < (initialTime / 100 * 30)) {
+        timeBar.style.backgroundColor = '#ff6666';
+        stratagemNameDisplay.style.backgroundColor = '#ff6666';
+    } else {
+        timeBar.style.backgroundColor = '#ffff66';
+        stratagemNameDisplay.style.backgroundColor = '#ffff66';
+    }
+}
+
 function timer() {
     if (timerInterval) {
         clearInterval(timerInterval);
     }
     secondsLeft = initialTime;
     previousSecondsLeft = secondsLeft;
+    lowAmountOfTimeUIRecolor();
 
     timerInterval = setInterval(function () {
         if (secondsLeft >= 0) {
             timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
             secondsLeft -= 0.1; // Decrease by 0.1 for smoother transition
             renderTimeBar();
-            if (secondsLeft < (initialTime / 100 * 30)) {
-                timeBar.style.backgroundColor = '#ff6666';
-            } else {
-                timeBar.style.backgroundColor = '#ffff66';
-            }
+            lowAmountOfTimeUIRecolor();
 
         } else {
             clearInterval(timerInterval);
@@ -214,7 +221,7 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    if (secondsLeft >= 10) {
+                    if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
                         secondsLeft = 10;
@@ -325,7 +332,7 @@ function initMenu() {
     document.addEventListener('keydown', handleKeyDownForMenu);
     startScreen.style.display = 'block';
     document.removeEventListener('keydown', handleKeyDownForGame);
-    timeBar.style.backgroundColor = '#ffff66';
+    // lowAmountOfTimeUIRecolor()
 }
 
 //this function removes page scrolling on the arrow keys. https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
