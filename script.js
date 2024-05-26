@@ -156,7 +156,7 @@ function updateStratagemDisplay() {
 }
 
 function createArrowDivs() {
-    let randomStratagemArrows = roundStratagemList[stratagemID];
+    let randomStratagemArrows = roundStratagemList[stratagemID]['arrows'];
     const container = document.createElement('div');
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
