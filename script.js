@@ -30,7 +30,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 10;
+let initialTime = 1000;
 let interval;
 let secondsLeft;
 let timerInterval;
@@ -116,8 +116,14 @@ function createContainer() {
     }
     container = createArrowDivs();
     container.classList.add('gameScreen');
+
+    // Create and append stratagem image container
+    const stratagemImageContainer = createStratagemImageContainer();
+    container.appendChild(stratagemImageContainer);
+
     return container;
 }
+
 
 function initGame() {
     stratagemPerRoundAmount = 6;
@@ -174,6 +180,32 @@ function updateStratagemDisplay() {
     stratagemNameDisplay.textContent = stratagemName;
 }
 
+function createStratagemImageContainer() {
+    const containerStratagemImg = document.createElement('div');
+    containerStratagemImg.classList.add('stratagemImageContainer');
+
+    // Iterate over all stratagems in the roundStratagemList
+    roundStratagemList.forEach((stratagem, index) => {
+        let stratagemImagePath = stratagem['image'];
+        const stratagemImg = document.createElement('img');
+        stratagemImg.classList.add(`stratagemImage`)
+        stratagemImg.src = stratagemImagePath;
+        stratagemImg.alt = "Stratagem Image";
+        if (index === 0) {
+            stratagemImg.classList.add('firstImg');
+            stratagemImg.classList.add('currentImg');
+        } else if (index === roundStratagemList.length - 1) {
+            stratagemImg.classList.add('lastImg');
+        }
+
+        // Append each image to the container
+        containerStratagemImg.appendChild(stratagemImg);
+    });
+
+    return containerStratagemImg;
+}
+
+
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID]['arrows'];
     const container = document.createElement('div');
@@ -221,6 +253,7 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
+                    // document.querySelector('stratagemImageContainer').
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
@@ -235,7 +268,7 @@ function handleKeyDownForGame(e) {
                     });
 
                     if (stratagemID < roundStratagemList.length - 1) {
-                        currentScore += roundStratagemList[stratagemID].length * 5;
+                        currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         stratagemID++;
                         setTimeout(function () {
                             updateStratagemDisplay();
@@ -244,7 +277,7 @@ function handleKeyDownForGame(e) {
                         }, 100)
 
                     } else {
-                        currentScore += roundStratagemList[stratagemID].length * 5;
+                        currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         console.log(currentScore);
                         calculatePlayerScore();
                         clearInterval(timerInterval);

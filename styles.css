@@ -9,7 +9,6 @@ body {
     background-color: #4c4a4f;
     font-family: sans-serif;
     border-top: 10px solid #008080;
-    position: relative;
 }
 
 .current {}
@@ -46,8 +45,33 @@ body {
     height: 100vh;
 }
 
+
+.stratagemImageContainer {
+    position: relative;
+    bottom: 200px;
+    left: -500px;
+}
+
+.stratagemImage {
+    width: 100px;
+    /* Set appropriate size */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+.currentImg {
+    width: 100px;
+    /* Set appropriate size */
+    height: auto;
+    /* Maintain aspect ratio */
+    border: solid;
+    border-width: 5px;
+    border-color: #ffff66;
+}
+
 .stratagemNameDisplay {
     color: black;
+    margin-top: 200px;
 }
 
 .stratagemNameDisplay,
