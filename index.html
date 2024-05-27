@@ -4,60 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Stratagem Arcade</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>STRATAGEM HERO</h1>
+    <!-- <h1>STRATAGEM HERO</h1> -->
+    <div class="mainScreen">
+        <div class="startScreen">
+            <h2>STRATAGEM HERO</h2>
+            <h3>Enter any Stratagem Input to Start!</h3>
 
-    <div class="startScreen">
-        <h2>STRATAGEM HERO</h2>
-        <h3>Enter any Stratagem Input to Start</h3>
-    </div>
+        </div>
 
-    <div class="preRoundGetReadyScreen">
-        <h2>GET READY</h2>
-        <h4 class="gameRound"></h4>
-    </div>
+        <div class="preRoundGetReadyScreen">
+            <h2>GET READY</h2>
+            <h4 class="gameRound"></h4>
+        </div>
 
-    <div class="inGameScreen">
-        <h4 class="gameRound"></h4>
-        <p class="countdown"></p>
-        <h3 class="stratagemNameDisplay"></h3>
-        <h4 class="playerScore"></h4>
-        <div class="roundTimeBar">
-            <div class="timeBar">
+        <div class="inGameScreen">
+            <h4 class="gameRound"></h4>
+            <p class="countdown"></p>
+            <h3 class="stratagemNameDisplay"></h3>
+            <h4 class="playerScore"></h4>
+            <div class="roundTimeBar">
+                <div class="timeBar">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="postRoundSummaryScreen">
-        <h4 class="roundBonus">Round Bonus</h4>
-        <!-- initial value = 75, +25 each round -->
-        <p class="roundBonusValue"></p>
-        <h4 class="timeBonus">Time Bonus</h4>
-        <!-- seems like their timeli<ne = 100% and timeBonus is just %timeLeft, eg 53% = +53 -->
-        <p class="timeBonusValue"></p>
-        <h4 class="perfectRoundBonus">Perfect Bonus</h4>
-        <!-- 100 points if every round stratagem entered without pressing wrong input -->
-        <p class="perfectRoundBonusValue"></p>
-        <h4 class="totalScore">Total Score</h4>
-        <p class="totalScoreValue"></p>
-    </div>
+        <div class="postRoundSummaryScreen">
+            <h4 class="roundBonus">Round Bonus</h4>
+            <!-- initial value = 75, +25 each round -->
+            <p class="roundBonusValue"></p>
+            <h4 class="timeBonus">Time Bonus</h4>
+            <!-- seems like their timeli<ne = 100% and timeBonus is just %timeLeft, eg 53% = +53 -->
+            <p class="timeBonusValue"></p>
+            <h4 class="perfectRoundBonus">Perfect Bonus</h4>
+            <!-- 100 points if every round stratagem entered without pressing wrong input -->
+            <p class="perfectRoundBonusValue"></p>
+            <h4 class="totalScore">Total Score</h4>
+            <p class="totalScoreValue"></p>
+        </div>
 
-    <div class="gameOverLeaderboard">
-        <h2 class="gameOver">GAME OVER</h2>
-        <h3 class="highScores">HIGH SCORES</h3>
-        <ol>
-            <li>Hustle Crowe | 999999</li>
-            <li>CorvusCrypto | 999999</li>
-            <li>Sudoki | 999999</li>
-        </ol>
-        <h3 class="yourFinalScore">YOUR FINAL SCORE</h3>
-        <h4 class="playerFinalScore"></h4>
+        <div class="gameOverLeaderboard">
+            <h2 class="gameOver">GAME OVER</h2>
+            <h3 class="highScores">HIGH SCORES</h3>
+            <ol>
+                <li>Hustle Crowe | 999999</li>
+                <li>CorvusCrypto | 999999</li>
+                <li>Sudoki | 999999</li>
+            </ol>
+            <h3 class="yourFinalScore">YOUR FINAL SCORE</h3>
+            <h4 class="playerFinalScore"></h4>
+        </div>
     </div>
-
 </body>
 
 <script src="script.js"></script>

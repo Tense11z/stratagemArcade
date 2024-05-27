@@ -177,7 +177,6 @@ function updateStratagemDisplay() {
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID];
     const container = document.createElement('div');
-
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
         arrowDiv.classList.add('stratagemArrow');
@@ -330,7 +329,7 @@ function initMenu() {
     displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);
-    startScreen.style.display = 'block';
+    startScreen.style.display = 'flex';
     document.removeEventListener('keydown', handleKeyDownForGame);
     // lowAmountOfTimeUIRecolor()
 }
