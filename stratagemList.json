@@ -1,423 +1,603 @@
 {
-    "LIFT-850 Jump Pack":[
-       "↓",
-       "↑",
-       "↑",
-       "↓",
-       "↑"
-    ],
-    "B-1 Supply Pack":[
-       "↓",
-       "←",
-       "↓",
-       "↑",
-       "↑",
-       "↓"
-    ],
-    "AX/LAS-5 \"Guard Dog\" Rover":[
-       "↓",
-       "↑",
-       "←",
-       "↑",
-       "→",
-       "→"
-    ],
-    "SH-20 Ballistic Shield Backpack":[
-       "↓",
-       "←",
-       "↓",
-       "↓",
-       "↑",
-       "←"
-    ],
-    "SH-32 Shield Generator Pack":[
-       "↓",
-       "↑",
-       "←",
-       "→",
-       "←",
-       "→"
-    ],
-    "AX/AR-23 \"Guard Dog\"":[
-       "↓",
-       "↑",
-       "←",
-       "↑",
-       "→",
-       "↓"
-    ],
-    "MG-43 Machine Gun":[
-       "↓",
-       "←",
-       "↓",
-       "↑",
-       "→"
-    ],
-    "APW-1 Anti-Materiel Rifle":[
-       "↓",
-       "←",
-       "→",
-       "↑",
-       "↓"
-    ],
-    "M-105 Stalwart":[
-       "↓",
-       "←",
-       "↓",
-       "↑",
-       "↑",
-       "←"
-    ],
-    "EAT-17 Expendable Anti-tank":[
-       "↓",
-       "↓",
-       "←",
-       "↑",
-       "→"
-    ],
-    "GR-8 Recoilless Rifle":[
-       "↓",
-       "←",
-       "→",
-       "→",
-       "←"
-    ],
-    "FLAM-40 Flamethrower":[
-       "↓",
-       "←",
-       "↑",
-       "↓",
-       "↑"
-    ],
-    "AC-8 Autocannon":[
-       "↓",
-       "←",
-       "↓",
-       "↑",
-       "↑",
-       "→"
-    ],
-    "MG-206 Heavy Machine Gun":[
-       "↓",
-       "←",
-       "↑",
-       "↓",
-       "↓"
-    ],
-    "RS-422 Railgun":[
-       "↓",
-       "→",
-       "↓",
-       "↑",
-       "←",
-       "→"
-    ],
-    "FAF-14 SPEAR Launcher":[
-       "↓",
-       "↓",
-       "↑",
-       "↓",
-       "↓"
-    ],
-    "GL-21 Grenade Launcher":[
-       "↓",
-       "←",
-       "↑",
-       "←",
-       "↓"
-    ],
-    "LAS-98 Laser Cannon":[
-       "↓",
-       "←",
-       "↓",
-       "↑",
-       "←"
-    ],
-    "ARC-3 Arc Thrower":[
-       "↓",
-       "→",
-       "↓",
-       "↑",
-       "←",
-       "←"
-    ],
-    "LAS-99 Quasar Cannon":[
-       "↓",
-       "↓",
-       "↑",
-       "←",
-       "→"
-    ],
-    "RL-77 Airburst Rocket Launcher":[
-       "↓",
-       "↑",
-       "↑",
-       "←",
-       "→"
-    ],
-    "Reinforce":[
-       "↑",
-       "↓",
-       "→",
-       "←",
-       "↑"
-    ],
-    "SOS Beacon":[
-       "↑",
-       "↓",
-       "→",
-       "↑"
-    ],
-    "Resupply":[
-       "↓",
-       "↓",
-       "↑",
-       "→"
-    ],
-    "NUX-223 Hellbomb":[
-       "↓",
-       "↑",
-       "←",
-       "↓",
-       "↑",
-       "→",
-       "↓",
-       "↑"
-    ],
-    "SSSD Delivery":[
-       "↓",
-       "↓",
-       "↓",
-       "↑",
-       "↑"
-    ],
-    "Seismic Probe":[
-       "↑",
-       "↑",
-       "←",
-       "→",
-       "↓",
-       "↓"
-    ],
-    "Upload Data":[
-       "←",
-       "→",
-       "↑",
-       "↑",
-       "↑"
-    ],
-    "Eagle Rearm":[
-       "↑",
-       "↑",
-       "←",
-       "↑",
-       "→"
-    ],
-    "SEAF Artillery":[
-       "→",
-       "↑",
-       "↑",
-       "↓"
-    ],
-    "Super Earth Flag":[
-       "↓",
-       "↑",
-       "↓",
-       "↑"
-    ],
-    "E/MG-101 HMG Emplacement":[
-       "↓",
-       "↑",
-       "←",
-       "→",
-       "→",
-       "←"
-    ],
-    "FX-12 Shield Generator Relay":[
-       "↓",
-       "↓",
-       "←",
-       "→",
-       "←",
-       "→"
-    ],
-    "A/ARC-3 Tesla Tower":[
-       "↓",
-       "↑",
-       "→",
-       "↑",
-       "←",
-       "→"
-    ],
-    "MD-6 Anti-Personnel Minefield":[
-       "↓",
-       "←",
-       "↑",
-       "→"
-    ],
-    "MD-I4 Incendiary Mines":[
-       "↓",
-       "←",
-       "←",
-       "↓"
-    ],
-    "A/MG-43 Machine Gun Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "→",
-       "↑"
-    ],
-    "A/G-16 Gatling Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "←"
-    ],
-    "A/M-12 Mortar Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "→",
-       "↓"
-    ],
-    "A/AC-8 Autocannon Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "↑",
-       "←",
-       "↑"
-    ],
-    "A/MLS-4X Rocket Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "→",
-       "←"
-    ],
-    "A/M-23 EMS Mortar Sentry":[
-       "↓",
-       "↑",
-       "→",
-       "↓",
-       "→"
-    ],
-    "Orbital Gatling Barrage":[
-       "→",
-       "↓",
-       "←",
-       "↑",
-       "↑"
-    ],
-    "Orbital Airburst Strike":[
-       "→",
-       "→",
-       "→"
-    ],
-    "Orbital 120MM HE Barrage":[
-       "→",
-       "→",
-       "↓",
-       "←",
-       "→",
-       "↓"
-    ],
-    "Orbital 380MM HE Barrage":[
-       "→",
-       "↓",
-       "↑",
-       "↑",
-       "←",
-       "↓",
-       "↓"
-    ],
-    "Orbital Walking Barrage":[
-       "→",
-       "↓",
-       "→",
-       "↓",
-       "→",
-       "↓"
-    ],
-    "Orbital Laser":[
-       "→",
-       "↓",
-       "↑",
-       "→",
-       "↓"
-    ],
-    "Orbital Railcannon Strike":[
-       "→",
-       "↑",
-       "↓",
-       "↓",
-       "→"
-    ],
-    "Orbital Precision StrikeOrbital Gas Strike":[
-       "→",
-       "→",
-       "↑"
-    ],
-    "Orbital Gas Strike":[
-       "→",
-       "→",
-       "↓",
-       "→"
-    ],
-    "Orbital EMS Strike":[
-       "→",
-       "→",
-       "←",
-       "↓"
-    ],
-    "Orbital Smoke Strike":[
-       "→",
-       "→",
-       "↓",
-       "↑"
-    ],
-    "Eagle Strafing Run":[
-       "↑",
-       "→",
-       "→"
-    ],
-    "Eagle Airstrike":[
-       "↑",
-       "→",
-       "↓",
-       "→"
-    ],
-    "Eagle Cluster Bomb":[
-       "↑",
-       "→",
-       "↓",
-       "↓",
-       "→"
-    ],
-    "Eagle Napalm Airstrike":[
-       "↑",
-       "→",
-       "↓",
-       "↑"
-    ],
-    "Eagle Smoke Strike":[
-       "↑",
-       "→",
-       "↑",
-       "↓"
-    ],
-    "Eagle 110MM Rocket Pods":[
-       "↑",
-       "→",
-       "↑",
-       "←"
-    ],
-    "Eagle 500kg Bomb":[
-       "↑",
-       "→",
-       "↓",
-       "↓",
-       "↓"
-    ]
- }
+   "LIFT-850 Jump Pack":{
+      "arrows":[
+         "↓",
+         "↑",
+         "↑",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Jump Pack.svg"
+   },
+   "B-1 Supply Pack":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↑",
+         "↑",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Supply Pack.svg"
+   },
+   "AX/LAS-5 \"Guard Dog\" Rover":{
+      "arrows":[
+         "↓",
+         "↑",
+         "←",
+         "↑",
+         "→",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Guard Dog Rover.svg"
+   },
+   "SH-20 Ballistic Shield Backpack":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↓",
+         "↑",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Ballistic Shield Backpack.svg"
+   },
+   "SH-32 Shield Generator Pack":{
+      "arrows":[
+         "↓",
+         "↑",
+         "←",
+         "→",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Shield Generator Pack.svg"
+   },
+   "AX/AR-23 \"Guard Dog\"":{
+      "arrows":[
+         "↓",
+         "↑",
+         "←",
+         "↑",
+         "→",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\Guard Dog.svg"
+   },
+   "MG-43 Machine Gun":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\M-43machinegun.png"
+   },
+   "APW-1 Anti-Materiel Rifle":{
+      "arrows":[
+         "↓",
+         "←",
+         "→",
+         "↑",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Anti-Materiel Rifle.svg"
+   },
+   "M-105 Stalwart":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↑",
+         "↑",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Stalwart.svg"
+   },
+   "EAT-17 Expendable Anti-tank":{
+      "arrows":[
+         "↓",
+         "↓",
+         "←",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Expendable Anti-Tank.svg"
+   },
+   "GR-8 Recoilless Rifle":{
+      "arrows":[
+         "↓",
+         "←",
+         "→",
+         "→",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Recoilless Rifle.svg"
+   },
+   "FLAM-40 Flamethrower":{
+      "arrows":[
+         "↓",
+         "←",
+         "↑",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Flamethrower.svg"
+   },
+   "AC-8 Autocannon":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↑",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Autocannon.svg"
+   },
+   "MG-206 Heavy Machine Gun":{
+      "arrows":[
+         "↓",
+         "←",
+         "↑",
+         "↓",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Heavy Machine Gun.svg"
+   },
+   "RS-422 Railgun":{
+      "arrows":[
+         "↓",
+         "→",
+         "↓",
+         "↑",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Railgun.svg"
+   },
+   "FAF-14 SPEAR Launcher":{
+      "arrows":[
+         "↓",
+         "↓",
+         "↑",
+         "↓",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Spear.svg"
+   },
+   "GL-21 Grenade Launcher":{
+      "arrows":[
+         "↓",
+         "←",
+         "↑",
+         "←",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Grenade Launcher.svg"
+   },
+   "LAS-98 Laser Cannon":{
+      "arrows":[
+         "↓",
+         "←",
+         "↓",
+         "↑",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Laser Cannon.svg"
+   },
+   "ARC-3 Arc Thrower":{
+      "arrows":[
+         "↓",
+         "→",
+         "↓",
+         "↑",
+         "←",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Arc Thrower.svg"
+   },
+   "LAS-99 Quasar Cannon":{
+      "arrows":[
+         "↓",
+         "↓",
+         "↑",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Quasar Cannon.svg"
+   },
+   "RL-77 Airburst Rocket Launcher":{
+      "arrows":[
+         "↓",
+         "↑",
+         "↑",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Patriotic Administration Center\\Airburst Rocket Launcher.svg"
+   },
+   "Reinforce":{
+      "arrows":[
+         "↑",
+         "↓",
+         "→",
+         "←",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Reinforce.svg"
+   },
+   "SOS Beacon":{
+      "arrows":[
+         "↑",
+         "↓",
+         "→",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\SOS Beacon.svg"
+   },
+   "Resupply":{
+      "arrows":[
+         "↓",
+         "↓",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Resupply.svg"
+   },
+   "NUX-223 Hellbomb":{
+      "arrows":[
+         "↓",
+         "↑",
+         "←",
+         "↓",
+         "↑",
+         "→",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Hellbomb.svg"
+   },
+   "SSSD Delivery":{
+      "arrows":[
+         "↓",
+         "↓",
+         "↓",
+         "↑",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Upload Data.svg"
+   },
+   "Seismic Probe":{
+      "arrows":[
+         "↑",
+         "↑",
+         "←",
+         "→",
+         "↓",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Seismic Probe.svg"
+   },
+   "Upload Data":{
+      "arrows":[
+         "←",
+         "→",
+         "↑",
+         "↑",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Upload Data.svg"
+   },
+   "Eagle Rearm":{
+      "arrows":[
+         "↑",
+         "↑",
+         "←",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Rearm.svg"
+   },
+   "SEAF Artillery":{
+      "arrows":[
+         "→",
+         "↑",
+         "↑",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\SEAF Artillery.svg"
+   },
+   "Super Earth Flag":{
+      "arrows":[
+         "↓",
+         "↑",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\General Stratagems\\Super Earth Flag.svg"
+   },
+   "E/MG-101 HMG Emplacement":{
+      "arrows":[
+         "↓",
+         "↑",
+         "←",
+         "→",
+         "→",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\HMG Emplacement.svg"
+   },
+   "FX-12 Shield Generator Relay":{
+      "arrows":[
+         "↓",
+         "↓",
+         "←",
+         "→",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Shield Generator Relay.svg"
+   },
+   "A/ARC-3 Tesla Tower":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "↑",
+         "←",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Tesla Tower.svg"
+   },
+   "MD-6 Anti-Personnel Minefield":{
+      "arrows":[
+         "↓",
+         "←",
+         "↑",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Anti-Personnel Minefield.svg"
+   },
+   "MD-I4 Incendiary Mines":{
+      "arrows":[
+         "↓",
+         "←",
+         "←",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Engineering Bay\\Incendiary Mines.svg"
+   },
+   "A/MG-43 Machine Gun Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "→",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\Machine Gun Sentry.svg"
+   },
+   "A/G-16 Gatling Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\Gatling Sentry.svg"
+   },
+   "A/M-12 Mortar Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "→",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\EMS Mortar Sentry.svg"
+   },
+   "A/AC-8 Autocannon Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "↑",
+         "←",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\Autocannon Sentry.svg"
+   },
+   "A/MLS-4X Rocket Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "→",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\Rocket Sentry.svg"
+   },
+   "A/M-23 EMS Mortar Sentry":{
+      "arrows":[
+         "↓",
+         "↑",
+         "→",
+         "↓",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Robotics Workshop\\EMS Mortar Sentry.svg"
+   },
+   "Orbital Gatling Barrage":{
+      "arrows":[
+         "→",
+         "↓",
+         "←",
+         "↑",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital Gatling Barrage.svg"
+   },
+   "Orbital Airburst Strike":{
+      "arrows":[
+         "→",
+         "→",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital Airburst Strike.svg"
+   },
+   "Orbital 120MM HE Barrage":{
+      "arrows":[
+         "→",
+         "→",
+         "↓",
+         "←",
+         "→",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital 120MM HE Barrage.svg"
+   },
+   "Orbital 380MM HE Barrage":{
+      "arrows":[
+         "→",
+         "↓",
+         "↑",
+         "↑",
+         "←",
+         "↓",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital 380MM HE Barrage.svg"
+   },
+   "Orbital Walking Barrage":{
+      "arrows":[
+         "→",
+         "↓",
+         "→",
+         "↓",
+         "→",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital Walking Barrage.svg"
+   },
+   "Orbital Laser":{
+      "arrows":[
+         "→",
+         "↓",
+         "↑",
+         "→",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital Laser.svg"
+   },
+   "Orbital Railcannon Strike":{
+      "arrows":[
+         "→",
+         "↑",
+         "↓",
+         "↓",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Orbital Cannons\\Orbital Railcannon Strike.svg"
+   },
+   "Orbital Precision Strike":{
+      "arrows":[
+         "→",
+         "→",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Orbital Precision Strike.svg"
+   },
+   "Orbital Gas Strike":{
+      "arrows":[
+         "→",
+         "→",
+         "↓",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Orbital Gas Strike.svg"
+   },
+   "Orbital EMS Strike":{
+      "arrows":[
+         "→",
+         "→",
+         "←",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Orbital EMS Strike.svg"
+   },
+   "Orbital Smoke Strike":{
+      "arrows":[
+         "→",
+         "→",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Bridge\\Orbital Smoke Strike.svg"
+   },
+   "Eagle Strafing Run":{
+      "arrows":[
+         "↑",
+         "→",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Strafing Run.svg"
+   },
+   "Eagle Airstrike":{
+      "arrows":[
+         "↑",
+         "→",
+         "↓",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Airstrike.svg"
+   },
+   "Eagle Cluster Bomb":{
+      "arrows":[
+         "↑",
+         "→",
+         "↓",
+         "↓",
+         "→"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Cluster Bomb.svg"
+   },
+   "Eagle Napalm Airstrike":{
+      "arrows":[
+         "↑",
+         "→",
+         "↓",
+         "↑"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Napalm Airstrike.svg"
+   },
+   "Eagle Smoke Strike":{
+      "arrows":[
+         "↑",
+         "→",
+         "↑",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle Smoke Strike.svg"
+   },
+   "Eagle 110MM Rocket Pods":{
+      "arrows":[
+         "↑",
+         "→",
+         "↑",
+         "←"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle 110MM Rocket Pods.svg"
+   },
+   "Eagle 500kg Bomb":{
+      "arrows":[
+         "↑",
+         "→",
+         "↓",
+         "↓",
+         "↓"
+      ],
+      "image":"\\icons_warbonds\\Hangar\\Eagle 500KG Bomb.svg"
+   }
+}

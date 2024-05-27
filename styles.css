@@ -85,8 +85,38 @@ body {
     height: 100vh;
 }
 
+
+.stratagemImageContainer {
+    display: flexbox;
+    position: relative;
+    bottom: 200px;
+    left: -730px;
+}
+
+.stratagemImage {
+    width: 100px;
+    /* Set appropriate size */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+.currentImg {
+    width: 100px;
+    /* Set appropriate size */
+    height: auto;
+    /* Maintain aspect ratio */
+    border: solid;
+    border-width: 5px;
+    border-color: #ffff66;
+}
+
+.passedImg {
+    visible: none;
+}
+
 .stratagemNameDisplay {
     color: black;
+    margin-top: 150px;
 }
 
 .stratagemNameDisplay,

@@ -72,9 +72,13 @@ function lowAmountOfTimeUIRecolor() {
     if (secondsLeft < (initialTime / 100 * 30)) {
         timeBar.style.backgroundColor = '#ff6666';
         stratagemNameDisplay.style.backgroundColor = '#ff6666';
+        document.querySelector('.currentImg').style.borderColor = '#ff6666';
     } else {
         timeBar.style.backgroundColor = '#ffff66';
         stratagemNameDisplay.style.backgroundColor = '#ffff66';
+        if (document.querySelector('.currentImg') != null) {
+            document.querySelector('.currentImg').style.borderColor = '#ffff66';
+        }
     }
 }
 
@@ -116,8 +120,13 @@ function createContainer() {
     }
     container = createArrowDivs();
     container.classList.add('gameScreen');
+
+    // Create and append stratagem image container
+    const stratagemImageContainer = createStratagemImageContainer(stratagemID);
+    container.appendChild(stratagemImageContainer);
     return container;
 }
+
 
 function initGame() {
     stratagemPerRoundAmount = 6;
@@ -174,8 +183,40 @@ function updateStratagemDisplay() {
     stratagemNameDisplay.textContent = stratagemName;
 }
 
+function createStratagemImageContainer(currentIndex) {
+    const containerStratagemImg = document.createElement('div');
+    containerStratagemImg.classList.add('stratagemImageContainer');
+
+    // Iterate over all stratagems in the roundStratagemList
+    if (stratagemID !== 0) {
+        delete roundStratagemList[stratagemID - 1];
+    }
+    roundStratagemList.forEach((stratagem, index) => {
+        let stratagemImagePath = stratagem['image'];
+        const stratagemImg = document.createElement('img');
+        stratagemImg.classList.add(`stratagemImage`)
+        stratagemImg.src = stratagemImagePath;
+        stratagemImg.alt = "Stratagem Image";
+        if (currentIndex === index) {
+            stratagemImg.classList.add('currentImg');
+        }
+        if (index === 0) {
+            stratagemImg.classList.add('firstImg');
+        }
+        else if (index === roundStratagemList.length - 1) {
+            stratagemImg.classList.add('lastImg');
+        }
+
+        // Append each image to the container
+        containerStratagemImg.appendChild(stratagemImg);
+    });
+
+    return containerStratagemImg;
+}
+
+
 function createArrowDivs() {
-    let randomStratagemArrows = roundStratagemList[stratagemID];
+    let randomStratagemArrows = roundStratagemList[stratagemID]['arrows'];
     const container = document.createElement('div');
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
@@ -220,6 +261,9 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
+                    // document.querySelector('stratagemImageContainer').
+                    const currentImage = document.querySelector('.currentImg');
+                    moveCurrentImg(currentImage);
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
@@ -234,7 +278,7 @@ function handleKeyDownForGame(e) {
                     });
 
                     if (stratagemID < roundStratagemList.length - 1) {
-                        currentScore += roundStratagemList[stratagemID].length * 5;
+                        currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         stratagemID++;
                         setTimeout(function () {
                             updateStratagemDisplay();
@@ -243,7 +287,7 @@ function handleKeyDownForGame(e) {
                         }, 100)
 
                     } else {
-                        currentScore += roundStratagemList[stratagemID].length * 5;
+                        currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         console.log(currentScore);
                         calculatePlayerScore();
                         clearInterval(timerInterval);
@@ -301,6 +345,20 @@ function moveCurrentArrow(currentArrowDiv) {
             const firstDiv = document.querySelector('.firstArrow');
             firstDiv.classList.add('current');
         }
+    }
+}
+
+function moveCurrentImg(currentImage) {
+    if (currentImage) {
+        currentImage.classList.remove('currentImg');
+        const nextImg = currentImage.nextElementSibling;
+        if (nextImg) {
+            nextImg.classList.add('currentImg');
+        }
+        //  else {
+        //     const firstImage = document.querySelector('.firstImg');
+        //     firstImage.classList.add('currentImg');
+        // }
     }
 }
 
