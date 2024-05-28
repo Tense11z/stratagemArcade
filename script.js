@@ -16,6 +16,7 @@ let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
 let inGameScreen = document.querySelector('.inGameScreen');
 let postRoundSummaryScreen = document.querySelector('.postRoundSummaryScreen');
 let gameOverLeaderboard = document.querySelector('.gameOverLeaderboard');
+let mainScreen = document.querySelector('.mainScreen');
 //eventListeners
 document.addEventListener('keydown', handleKeyDownForMenu);
 document.addEventListener('keydown', handleKeyDownForGame);
@@ -58,7 +59,7 @@ async function fetchStratagems() {
 timeBar.style.width = '100%';
 
 function displayRoundScore() {
-    gameRound.textContent = `Round ${currentRound}`;
+    gameRound.textContent = `${currentRound}`;
 }
 
 function renderTimeBar() {
@@ -116,7 +117,7 @@ function timer() {
 function createContainer() {
     let container = document.querySelector('.gameScreen');
     if (container != null) {
-        document.body.removeChild(container);
+        mainScreen.removeChild(container);
     }
     container = createArrowDivs();
     container.classList.add('gameScreen');
@@ -127,14 +128,17 @@ function createContainer() {
     return container;
 }
 
+function mainScreenGameContainer() {
+    const container = createContainer();
+    mainScreen.appendChild(container);
+}
 
 function initGame() {
     stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
-    const container = createContainer();
-    document.body.appendChild(container);
+    mainScreenGameContainer()
     currentScore = 0;
     timeDisplay.textContent = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
     playerScore.textContent = currentScore;
@@ -282,8 +286,7 @@ function handleKeyDownForGame(e) {
                         stratagemID++;
                         setTimeout(function () {
                             updateStratagemDisplay();
-                            const container = createContainer();
-                            document.body.appendChild(container);
+                            mainScreenGameContainer()
                         }, 100)
 
                     } else {
@@ -303,15 +306,14 @@ function handleKeyDownForGame(e) {
 
                         setTimeout(function () {
                             postRoundSummaryScreen.style.display = 'none';
-                            preRoundGetReadyScreen.style.display = 'block';
+                            preRoundGetReadyScreen.style.display = 'flex';
                             setTimeout(function () {
                                 preRoundGetReadyScreen.style.display = 'none';
                                 inGameScreen.style.display = 'block';
                                 document.querySelector('.gameScreen').style.display = 'block';
                                 startRound();
                                 updateStratagemDisplay();
-                                const container = createContainer();
-                                document.body.appendChild(container);
+                                mainScreenGameContainer()
                                 document.addEventListener('keydown', handleKeyDownForGame);
                             }, 2000);
                         }, 3000);
@@ -371,7 +373,7 @@ function handleKeyDownForMenu(e) {
     };
     if (Object.values(arrowKeyMap).includes(e.key)) {
         startScreen.style.display = 'none';
-        preRoundGetReadyScreen.style.display = 'block';
+        preRoundGetReadyScreen.style.display = 'flex';
         document.removeEventListener('keydown', handleKeyDownForMenu);
         setTimeout(function () {
             preRoundGetReadyScreen.style.display = 'none';
