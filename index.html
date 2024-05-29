@@ -35,17 +35,24 @@
         </div>
 
         <div class="postRoundSummaryScreen">
-            <h4 class="roundBonus">Round Bonus</h4>
-            <!-- initial value = 75, +25 each round -->
-            <p class="roundBonusValue"></p>
-            <h4 class="timeBonus">Time Bonus</h4>
-            <!-- seems like their timeli<ne = 100% and timeBonus is just %timeLeft, eg 53% = +53 -->
-            <p class="timeBonusValue"></p>
-            <h4 class="perfectRoundBonus">Perfect Bonus</h4>
-            <!-- 100 points if every round stratagem entered without pressing wrong input -->
-            <p class="perfectRoundBonusValue"></p>
-            <h4 class="totalScore">Total Score</h4>
-            <p class="totalScoreValue"></p>
+            <div class="roundSummarylabels">
+                <h4 class="roundBonus">Round Bonus</h4>
+                <h4 class="timeBonus">Time Bonus</h4>
+                <h4 class="perfectRoundBonus">Perfect Bonus</h4>
+                <h4 class="totalScore">Total Score</h4>
+            </div>
+            <div class="roundSummaryValues">
+                <!-- initial value = 75, +25 each round -->
+                <p class="roundBonusValue"></p>
+
+                <!-- seems like their timeli<ne = 100% and timeBonus is just %timeLeft, eg 53% = +53 -->
+                <p class="timeBonusValue"></p>
+
+                <!-- 100 points if every round stratagem entered without pressing wrong input -->
+                <p class="perfectRoundBonusValue"></p>
+
+                <p class="totalScoreValue"></p>
+            </div>
         </div>
 
         <div class="gameOverLeaderboard">

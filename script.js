@@ -28,7 +28,7 @@ let roundBonusValue;
 let timeBonusValue;
 let perfectRoundFlag = true;
 let perfectRoundBonusValue = 100;
-let stratagemPerRoundAmount = 6;
+let stratagemPerRoundAmount = 2;
 let stratagemID = 0;
 // timer & timeBar variables
 let initialTime = 10;
@@ -134,7 +134,7 @@ function mainScreenGameContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 6;
+    stratagemPerRoundAmount = 2;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
@@ -295,7 +295,7 @@ function handleKeyDownForGame(e) {
                         calculatePlayerScore();
                         clearInterval(timerInterval);
                         setTimeout(function () {
-                            postRoundSummaryScreen.style.display = 'block';
+                            postRoundSummaryScreen.style.display = 'flex';
                             document.removeEventListener('keydown', handleKeyDownForGame);
                             inGameScreen.style.display = 'none';
                             document.querySelector('.gameScreen').style.display = 'none';
@@ -316,7 +316,7 @@ function handleKeyDownForGame(e) {
                                 mainScreenGameContainer()
                                 document.addEventListener('keydown', handleKeyDownForGame);
                             }, 2000);
-                        }, 3000);
+                        }, 300000);
                     }
                     playerScore.textContent = Math.round(currentScore);
                     displayRoundScore();
