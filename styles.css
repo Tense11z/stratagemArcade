@@ -1,7 +1,12 @@
 @font-face {
-    font-family: 'SinclairM';
+    font-family: 'SinclairR';
     src: url('fonts/FSSinclairRegular.otf') format('opentype');
     /* Specify font format */
+}
+
+@font-face {
+    font-family: 'SinclairM';
+    src: url('fonts/FSSinclairMedium.otf') format('opentype');
 }
 
 
@@ -9,14 +14,15 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
+    box-sizing: border-box;
 }
 
 html {}
 
+/* 4c4a4f */
 body {
     color: white;
-    background-color: #4c4a4f;
+    background-color: #3d3b3f;
     /* height: 100%; */
     padding: 10vh 0;
 }
@@ -47,7 +53,7 @@ body {
 
 .startScreen h2 {
     font-family: 'SinclairM', sans-serif;
-    font-size: min(5vw, 1600px);
+    font-size: min(8vw, 1600px);
     margin-bottom: 2vh;
 }
 
@@ -55,7 +61,7 @@ body {
     margin-top: 40vh;
     position: absolute;
     font-family: 'SinclairM', sans-serif;
-    font-size: min(2.5vw, 1600px);
+    font-size: min(3.9vw, 1600px);
     color: #ffff66;
 }
 
@@ -73,15 +79,15 @@ body {
 
 .preRoundGetReadyScreen h2 {
     font-family: 'SinclairM', sans-serif;
-    font-size: min(5vw, 1600px);
+    font-size: min(8vw, 1600px);
     margin-bottom: 2vh;
 }
 
 .preRoundGetReadyScreen .roundLabel {
-    margin-top: 25vh;
+    margin-top: 28vh;
     position: absolute;
     font-family: 'SinclairM', sans-serif;
-    font-size: min(2.5vw, 1600px);
+    font-size: min(2.0vw, 1600px);
     color: white;
 }
 
@@ -89,7 +95,7 @@ body {
     margin-top: 40vh;
     position: absolute;
     font-family: 'SinclairM', sans-serif;
-    font-size: min(4.9vw, 1600px);
+    font-size: min(3.9vw, 1600px);
     color: #ffff66;
 }
 
@@ -164,40 +170,85 @@ body {
 }
 
 /* post round summary screen */
+
 .postRoundSummaryScreen {
     display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    /* flex-direction: column; */
-    /* Stack items vertically */
-    text-align: center;
-    letter-spacing: .1rem;
 }
 
-.postRoundSummaryScreen .roundSummarylabels {
-    margin-right: 60vh;
-    font-family: 'SinclairM', sans-serif;
-    font-size: min(2.5vw, 1600px);
+.roundSummaryLabelValue {
+    width: 100vh;
+    margin: 0;
+    margin-top: 10vh;
+    padding: 0;
+    flex-grow: 1
+}
+
+.roundBonus,
+.timeBonus,
+.perfectRoundBonus,
+.totalScore {
     color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 4vh;
+    text-align: center;
 }
 
-.roundSummarylabels h4 {
-    margin-bottom: calc(1.1 * min(2.5vw, 1600px));
-}
-
-.postRoundSummaryScreen .roundSummaryValues {
-    font-family: 'SinclairM', sans-serif;
-    font-size: min(5vw, 1600px);
+.roundBonusValue,
+.timeBonusValue,
+.perfectRoundBonusValue,
+.totalScoreValue {
     color: #ffff66;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    font-size: 8vh;
 }
-
-.roundSummaryValues {
-    /* margin-bottom: calc(0.5 * min(5vw, 1600px)); */
-}
-
 
 /* game over leader board screen */
 .gameOverLeaderboard {
     display: none;
+    margin-top: 6vh;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    /* Stack items vertically */
+    text-align: center;
+}
+
+.gameOverLeaderboard>* {
+    text-align: center;
+    color: white;
+    font-family: 'SinclairM', sans-serif;
+    margin: 0;
+}
+
+.gameOver {
+    font-size: min(8vw, 1600px);
+    justify-content: center;
+    margin: 0;
+}
+
+.highScores {
+    font-size: min(2.8vw, 1600px);
+    margin: 0;
+}
+
+.gameOverLeaderboardValues p {
+    font-size: min(2vw, 1600px);
+    margin: 0;
+}
+
+.playerFinalScore {
+    color: #ffff66;
+    font-size: min(4vw, 1600px);
+
+    margin: 0;
+}
+
+.yourFinalScore {
+    font-size: min(2.2vw, 1600px);
 }
