@@ -139,7 +139,7 @@ function mainScreenGameContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 60
+    stratagemPerRoundAmount = 4;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
@@ -288,7 +288,6 @@ function handleKeyDownForGame(e) {
                 if (currentArrowDiv.classList.contains('lastArrow')) {
                     let stratagemImageContainerElem = document.querySelector('.stratagemImageContainer');
                     const currentImage = document.querySelector('.currentImg');
-                    moveCurrentImg(currentImage);
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
@@ -311,6 +310,7 @@ function handleKeyDownForGame(e) {
 
                             mainScreenGameContainer()
                             showHiddenImage(stratagemImageContainerElem);
+                            moveCurrentImg(currentImage);
                         }, 100)
 
                     } else {
@@ -337,6 +337,7 @@ function handleKeyDownForGame(e) {
                                 document.querySelector('.gameScreen').style.display = 'flex';
                                 startRound();
                                 updateStratagemDisplay();
+                                indexOfNone = 5;
                                 mainScreenGameContainer()
                                 document.addEventListener('keydown', handleKeyDownForGame);
                             }, 2000);
