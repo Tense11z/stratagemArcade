@@ -10,6 +10,8 @@ let timeBonusElem = document.querySelector('.timeBonusValue');
 let perfectRoundBonusElem = document.querySelector('.perfectRoundBonusValue');
 let totalScoreValueElem = document.querySelector('.totalScoreValue');
 let playerFinalScoreElem = document.querySelector('.playerFinalScore')
+let gameRoundValue = document.querySelector('.gameRoundValue');
+let stratagemIconsAndArrowsElem = document.querySelector('.stratagemIconsAndArrows');
 //screens
 let startScreen = document.querySelector('.startScreen');
 let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
@@ -73,12 +75,12 @@ function lowAmountOfTimeUIRecolor() {
     if (secondsLeft < (initialTime / 100 * 30)) {
         timeBar.style.backgroundColor = '#ff6666';
         stratagemNameDisplay.style.backgroundColor = '#ff6666';
-        document.querySelector('.currentImg').style.borderColor = '#ff6666';
+        // document.querySelector('.currentImg').style.borderColor = '#ff6666';
     } else {
         timeBar.style.backgroundColor = '#ffff66';
         stratagemNameDisplay.style.backgroundColor = '#ffff66';
         if (document.querySelector('.currentImg') != null) {
-            document.querySelector('.currentImg').style.borderColor = '#ffff66';
+            // document.querySelector('.currentImg').style.borderColor = '#ffff66';
         }
     }
 }
@@ -93,7 +95,7 @@ function timer() {
 
     timerInterval = setInterval(function () {
         if (secondsLeft >= 0) {
-            timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
+            // timeDisplay.innerHTML = '00:' + (secondsLeft < 10 ? '0' : '') + Math.floor(secondsLeft);
             secondsLeft -= 0.1; // Decrease by 0.1 for smoother transition
             renderTimeBar();
             lowAmountOfTimeUIRecolor();
@@ -117,20 +119,20 @@ function timer() {
 function createContainer() {
     let container = document.querySelector('.gameScreen');
     if (container != null) {
-        mainScreen.removeChild(container);
+        stratagemIconsAndArrowsElem.removeChild(container);
     }
     container = createArrowDivs();
     container.classList.add('gameScreen');
 
     // Create and append stratagem image container
     const stratagemImageContainer = createStratagemImageContainer(stratagemID);
-    container.appendChild(stratagemImageContainer);
+    container.insertBefore(stratagemImageContainer, container.firstChild);
     return container;
 }
 
 function mainScreenGameContainer() {
     const container = createContainer();
-    mainScreen.appendChild(container);
+    stratagemIconsAndArrowsElem.appendChild(container);
 }
 
 function initGame() {
@@ -145,6 +147,7 @@ function initGame() {
 }
 
 function startRound() {
+    gameRoundValue.textContent = currentRound;
     timeBar.style.width = '100%';
     if (!timeBar.classList.contains('startTimer')) {
         timeBar.classList.add('startTimer');
@@ -222,6 +225,8 @@ function createStratagemImageContainer(currentIndex) {
 function createArrowDivs() {
     let randomStratagemArrows = roundStratagemList[stratagemID]['arrows'];
     const container = document.createElement('div');
+    const arrowContainer = document.createElement('div');
+    arrowContainer.classList.add('arrowContainer');
     randomStratagemArrows.forEach((arrow, index) => {
         const arrowDiv = document.createElement('div');
         arrowDiv.classList.add('stratagemArrow');
@@ -242,9 +247,9 @@ function createArrowDivs() {
         arrowDiv.appendChild(arrowImg);
 
         // Append the arrow div to the container
-        container.appendChild(arrowDiv);
+        arrowContainer.appendChild(arrowDiv);
     });
-
+    container.appendChild(arrowContainer);
     container.classList.add('gameScreen');
     container.style.display = 'flex';
     return container;
@@ -309,7 +314,7 @@ function handleKeyDownForGame(e) {
                             preRoundGetReadyScreen.style.display = 'flex';
                             setTimeout(function () {
                                 preRoundGetReadyScreen.style.display = 'none';
-                                inGameScreen.style.display = 'block';
+                                inGameScreen.style.display = 'flex';
                                 document.querySelector('.gameScreen').style.display = 'block';
                                 startRound();
                                 updateStratagemDisplay();
@@ -377,7 +382,7 @@ function handleKeyDownForMenu(e) {
         document.removeEventListener('keydown', handleKeyDownForMenu);
         setTimeout(function () {
             preRoundGetReadyScreen.style.display = 'none';
-            inGameScreen.style.display = 'block';
+            inGameScreen.style.display = 'flex';
             initGame();
         }, 2000);
     } else {

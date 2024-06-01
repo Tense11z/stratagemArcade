@@ -105,30 +105,62 @@ body {
     display: none;
 }
 
+.gameRoundLabelValue {
+    background-color: blue;
+    border: solid red;
+}
+
+.stratagemImgArrowsName {
+    background-color: blue;
+    border: solid orange;
+}
+
+.stratagemIconsAndArrows {
+    background-color: blue;
+    border: solid green;
+}
+
+.stratagemImageContainer {
+    background-color: blue;
+    border: solid skyblue;
+}
+
+.arrowContainer {
+    background-color: blue;
+    border: solid pink;
+}
+
+.playerScoreLabelValue {
+    background-color: blue;
+    border: solid purple;
+}
+
+
 .roundTimeBar {
-    width: 100%;
+    /* width: 100%; */
     background-color: #afa6a5;
+    border: solid cyan;
 }
 
 .timeBar {
-    width: 100;
+    /* width: 100; */
     height: 30px;
     background-color: #ffff66;
     transition-timing-function: linear;
 }
 
 .gameScreen {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 100vh; */
 }
 
 
 .stratagemImageContainer {
-    display: flexbox;
+    /* display: flexbox;
     position: relative;
     bottom: 200px;
-    left: -730px;
+    left: -730px; */
 }
 
 .stratagemImage {
@@ -139,13 +171,13 @@ body {
 }
 
 .currentImg {
-    width: 100px;
+    width: 200px;
     /* Set appropriate size */
     height: auto;
     /* Maintain aspect ratio */
-    border: solid;
+    /* border: solid; */
     border-width: 5px;
-    border-color: #ffff66;
+    /* border-color: #ffff66; */
 }
 
 .passedImg {
@@ -154,7 +186,8 @@ body {
 
 .stratagemNameDisplay {
     color: black;
-    margin-top: 150px;
+    border: solid tomato;
+    /* margin-top: 150px; */
 }
 
 .stratagemNameDisplay,
@@ -168,6 +201,12 @@ body {
 .passed img {
     filter: sepia(1) saturate(4) brightness(2);
 }
+
+
+
+
+
+
 
 /* post round summary screen */
 
@@ -205,6 +244,12 @@ body {
     vertical-align: top;
     font-size: 8vh;
 }
+
+
+
+
+
+
 
 /* game over leader board screen */
 .gameOverLeaderboard {
