@@ -139,7 +139,7 @@ function mainScreenGameContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 1;
+    stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
