@@ -34,7 +34,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 10000;
+let initialTime = 10;
 let interval;
 let secondsLeft;
 let timerInterval;

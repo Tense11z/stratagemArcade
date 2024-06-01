@@ -76,11 +76,11 @@ body {
 }
 
 .startScreen h3 {
+    position: absolute;
     line-height: 0;
     font-family: 'SinclairM', sans-serif;
     font-size: min(4vw, 1600px);
     margin-top: 40vh;
-    position: absolute;
     color: #ffff66;
 }
 
@@ -152,6 +152,7 @@ body {
 
 
 .stratagemImgArrowsName {
+    /* justify-content: center; */
     margin: 5vh 5vw;
     display: flex;
     flex-direction: column;
