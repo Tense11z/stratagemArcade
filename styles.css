@@ -11,6 +11,10 @@
 
 
 
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -38,6 +42,11 @@ body {
 }
 
 
+
+
+
+
+
 /*start Screen*/
 
 .startScreen {
@@ -58,6 +67,7 @@ body {
 }
 
 .startScreen h3 {
+    line-height: 0;
     margin-top: 40vh;
     position: absolute;
     font-family: 'SinclairM', sans-serif;
@@ -111,8 +121,7 @@ body {
 
 .gameRoundLabelValue {
     margin: 5vh 5vw;
-    background-color: blue;
-    border: solid red;
+
 }
 
 .gameRoundLabelValue .gameRoundLabel {
@@ -129,32 +138,24 @@ body {
     color: #ffff66;
     text-align: left;
     margin: 0;
-    line-height: 0.7;
+    line-height: 1;
 }
 
 
 .stratagemImgArrowsName {
     margin: 5vh 5vw;
-    background-color: blue;
-    border: solid orange;
     display: flex;
     flex-direction: column;
 }
 
-.stratagemIconsAndArrows {
-    background-color: blue;
-    border: solid green;
-}
+.stratagemIconsAndArrows {}
 
 .stratagemImageContainer {
-    background-color: blue;
-    border: solid skyblue;
+    min-width: 60vw;
 }
 
 .arrowContainer {
     display: flex;
-    background-color: blue;
-    border: solid pink;
     flex-wrap: wrap;
     height: 100%;
     width: 100%;
@@ -162,9 +163,7 @@ body {
 }
 
 .playerScoreLabelValue {
-    margin: 5vh 5vw;
-    background-color: blue;
-    border: solid purple;
+    margin: 7vh 5vw;
     overflow: visible;
     position: relative;
 }
@@ -174,7 +173,7 @@ body {
     font-family: 'SinclairM', sans-serif;
     font-size: min(2vw, 1600px);
     margin-top: calc(100vh - (100vh - 4vw));
-    line-height: 0.7;
+    line-height: 0.1;
     text-align: right;
 }
 
@@ -195,7 +194,6 @@ body {
     /* width: 100%; */
     background-color: #afa6a5;
     height: 1.7vw;
-    border: solid cyan;
 }
 
 .timeBar {
@@ -251,7 +249,6 @@ body {
     line-height: 1;
     color: black;
     text-align: center;
-    border: solid tomato;
     /* margin-top: 150px; */
 }
 
@@ -264,8 +261,8 @@ body {
 }
 
 .gameScreen .arrowContainer .stratagemArrow img {
-    background-color: black;
     width: calc(100vw / 25);
+    margin: 0 0.2vw;
 }
 
 

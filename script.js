@@ -34,7 +34,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 1000000;
+let initialTime = 10;
 let interval;
 let secondsLeft;
 let timerInterval;
@@ -77,12 +77,12 @@ function lowAmountOfTimeUIRecolor() {
     if (secondsLeft < (initialTime / 100 * 30)) {
         timeBar.style.backgroundColor = '#ff6666';
         stratagemNameDisplay.style.backgroundColor = '#ff6666';
-        // document.querySelector('.currentImg').style.borderColor = '#ff6666';
+        document.querySelector('.currentImg').style.borderColor = '#ff6666';
     } else {
         timeBar.style.backgroundColor = '#ffff66';
         stratagemNameDisplay.style.backgroundColor = '#ffff66';
         if (document.querySelector('.currentImg') != null) {
-            // document.querySelector('.currentImg').style.borderColor = '#ffff66';
+            document.querySelector('.currentImg').style.borderColor = '#ffff66';
         }
     }
 }
@@ -139,7 +139,7 @@ function mainScreenGameContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 4;
+    stratagemPerRoundAmount = 6;
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
@@ -291,7 +291,7 @@ function handleKeyDownForGame(e) {
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
-                        secondsLeft = 100000;
+                        secondsLeft = 10;
                     }
                     renderTimeBar(); // Update progress bar immediately after changing secondsLeft
                     requestAnimationFrame(() => {
