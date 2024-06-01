@@ -417,7 +417,7 @@ function initMenu() {
     displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);
-    startScreen.style.display = 'block';
+    startScreen.style.display = 'flex';
     document.removeEventListener('keydown', handleKeyDownForGame);
     // lowAmountOfTimeUIRecolor()
 }
