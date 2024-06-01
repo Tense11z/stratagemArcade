@@ -304,6 +304,7 @@ body {
 .timeBonus,
 .perfectRoundBonus,
 .totalScore {
+    font-family: 'SinclairM', sans-serif;
     color: white;
     margin: 0;
     padding: 0;
@@ -315,6 +316,8 @@ body {
 .timeBonusValue,
 .perfectRoundBonusValue,
 .totalScoreValue {
+    font-family: 'SinclairM', sans-serif;
+    line-height: 1.1;
     color: #ffff66;
     margin: 0;
     padding: 0;
