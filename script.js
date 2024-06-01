@@ -12,6 +12,7 @@ let totalScoreValueElem = document.querySelector('.totalScoreValue');
 let playerFinalScoreElem = document.querySelector('.playerFinalScore')
 let gameRoundValue = document.querySelector('.gameRoundValue');
 let stratagemIconsAndArrowsElem = document.querySelector('.stratagemIconsAndArrows');
+let stratagemNameElement = document.querySelector('.stratagemNameDisplay');
 //screens
 let startScreen = document.querySelector('.startScreen');
 let preRoundGetReadyScreen = document.querySelector('.preRoundGetReadyScreen');
@@ -33,12 +34,13 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 1000;
+let initialTime = 1000000;
 let interval;
 let secondsLeft;
 let timerInterval;
 let previousSecondsLeft = initialTime;
 let stratagems;
+let indexOfNone = 5;
 //mapping arrows to the pictures
 const symbolToImageMap = {
     '↓': '/arrows/arrowD.png',
@@ -120,13 +122,14 @@ function createContainer() {
     let container = document.querySelector('.gameScreen');
     if (container != null) {
         stratagemIconsAndArrowsElem.removeChild(container);
+        stratagemIconsAndArrowsElem.removeChild(document.querySelector('.stratagemImageContainer'));
     }
     container = createArrowDivs();
     container.classList.add('gameScreen');
 
     // Create and append stratagem image container
     const stratagemImageContainer = createStratagemImageContainer(stratagemID);
-    container.insertBefore(stratagemImageContainer, container.firstChild);
+    stratagemIconsAndArrowsElem.insertBefore(stratagemImageContainer, stratagemIconsAndArrowsElem.children[0]);
     return container;
 }
 
@@ -136,7 +139,7 @@ function mainScreenGameContainer() {
 }
 
 function initGame() {
-    stratagemPerRoundAmount = 6
+    stratagemPerRoundAmount = 60
     document.addEventListener('keydown', handleKeyDownForGame);
     startRound();
     updateStratagemDisplay();
@@ -210,6 +213,10 @@ function createStratagemImageContainer(currentIndex) {
         if (index === 0) {
             stratagemImg.classList.add('firstImg');
         }
+        if (index > indexOfNone) {
+            stratagemImg.style.display = 'none';
+            stratagemImg.classList.add('imgHidden');
+        }
         else if (index === roundStratagemList.length - 1) {
             stratagemImg.classList.add('lastImg');
         }
@@ -217,8 +224,17 @@ function createStratagemImageContainer(currentIndex) {
         // Append each image to the container
         containerStratagemImg.appendChild(stratagemImg);
     });
+    indexOfNone += 1;
 
     return containerStratagemImg;
+}
+
+function showHiddenImage(container) {
+    const hiddenImages = container.querySelectorAll('.imgHidden');
+    if (hiddenImages.length > 0) {
+        hiddenImages[0].style.display = 'inline';
+        hiddenImages[0].classList.remove('imgHidden');
+    }
 }
 
 
@@ -270,13 +286,13 @@ function handleKeyDownForGame(e) {
                 currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
-                    // document.querySelector('stratagemImageContainer').
+                    let stratagemImageContainerElem = document.querySelector('.stratagemImageContainer');
                     const currentImage = document.querySelector('.currentImg');
                     moveCurrentImg(currentImage);
                     if (secondsLeft <= 10) {
                         secondsLeft += initialTime * 0.05;
                     } else {
-                        secondsLeft = 10;
+                        secondsLeft = 100000;
                     }
                     renderTimeBar(); // Update progress bar immediately after changing secondsLeft
                     requestAnimationFrame(() => {
@@ -290,8 +306,11 @@ function handleKeyDownForGame(e) {
                         currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         stratagemID++;
                         setTimeout(function () {
+
                             updateStratagemDisplay();
+
                             mainScreenGameContainer()
+                            showHiddenImage(stratagemImageContainerElem);
                         }, 100)
 
                     } else {
@@ -315,7 +334,7 @@ function handleKeyDownForGame(e) {
                             setTimeout(function () {
                                 preRoundGetReadyScreen.style.display = 'none';
                                 inGameScreen.style.display = 'flex';
-                                document.querySelector('.gameScreen').style.display = 'block';
+                                document.querySelector('.gameScreen').style.display = 'flex';
                                 startRound();
                                 updateStratagemDisplay();
                                 mainScreenGameContainer()
@@ -362,7 +381,7 @@ function moveCurrentImg(currentImage) {
         if (nextImg) {
             nextImg.classList.add('currentImg');
         }
-        //  else {
+        //else {
         //     const firstImage = document.querySelector('.firstImg');
         //     firstImage.classList.add('currentImg');
         // }
@@ -390,7 +409,10 @@ function handleKeyDownForMenu(e) {
     }
 }
 fetchStratagems();
+
 function initMenu() {
+    indexOfNone = 5;
+    stratagemID = 0;
     displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);

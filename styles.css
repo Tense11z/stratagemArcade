@@ -102,10 +102,15 @@ body {
 /* inGameScreen, gameScreen, timebar, images, arrows */
 
 .inGameScreen {
+    justify-content: center;
     display: none;
+    height: 100%;
+    width: 100%;
+    flex: 0 0 100%;
 }
 
 .gameRoundLabelValue {
+    margin: 0 5vw;
     background-color: blue;
     border: solid red;
 }
@@ -113,6 +118,8 @@ body {
 .stratagemImgArrowsName {
     background-color: blue;
     border: solid orange;
+    display: flex;
+    flex-direction: column;
 }
 
 .stratagemIconsAndArrows {
@@ -126,11 +133,16 @@ body {
 }
 
 .arrowContainer {
+    display: flex;
     background-color: blue;
     border: solid pink;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
 }
 
 .playerScoreLabelValue {
+    margin: 0 5vw;
     background-color: blue;
     border: solid purple;
 }
@@ -150,6 +162,8 @@ body {
 }
 
 .gameScreen {
+    flex-direction: column;
+    /* display: block; */
     /* display: flex;
     justify-content: center;
     height: 100vh; */
@@ -157,6 +171,9 @@ body {
 
 
 .stratagemImageContainer {
+    display: block;
+    flex-wrap: wrap;
+    overflow: clip;
     /* display: flexbox;
     position: relative;
     bottom: 200px;
@@ -164,20 +181,20 @@ body {
 }
 
 .stratagemImage {
-    width: 100px;
+    width: calc(100% / 6.5);
     /* Set appropriate size */
-    height: auto;
     /* Maintain aspect ratio */
+    box-sizing: border-box;
 }
 
 .currentImg {
-    width: 200px;
+    width: calc(100% / 5);
     /* Set appropriate size */
     height: auto;
     /* Maintain aspect ratio */
-    /* border: solid; */
+    border: solid;
     border-width: 5px;
-    /* border-color: #ffff66; */
+    border-color: #ffff66;
 }
 
 .passedImg {
@@ -259,7 +276,6 @@ body {
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    flex-direction: column;
     /* Stack items vertically */
     text-align: center;
 }
