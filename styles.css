@@ -26,13 +26,16 @@ html {}
 /* 4c4a4f */
 body {
     color: white;
-    background-color: #3d3b3f;
+    /* background-color: #3d3b3f; */
     /* height: 100%; */
     padding: 10vh 0;
 }
 
 body {
     height: calc(100vh - 20vh);
+    height: 100vh;
+    background: url('SuperEarth.png') no-repeat center center fixed;
+    background-size: cover;
 }
 
 .mainScreen {
@@ -48,30 +51,37 @@ body {
 
 
 /*start Screen*/
-
 .startScreen {
     display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    flex-direction: column;
-    /* Stack items vertically */
     text-align: center;
+    height: 100%;
+    align-items: center;
+    position: relative;
     letter-spacing: .1rem;
+    /*
+    height: 100%;
+    flex-direction: column; */
+    /* Stack items vertically */
+    /* text-align: center;
+     */
+}
+
+.startScreenLabelValue {
+
+    padding-top: calc(100vh/2 - 12vw);
 }
 
 .startScreen h2 {
+
     font-family: 'SinclairM', sans-serif;
     font-size: min(8vw, 1600px);
-    margin-bottom: 2vh;
+    margin-bottom: calc((100vh/2 - 12vw)/2);
 }
 
 .startScreen h3 {
     line-height: 0;
-    margin-top: 40vh;
-    position: absolute;
     font-family: 'SinclairM', sans-serif;
-    font-size: min(3.9vw, 1600px);
+    font-size: min(4vw, 1600px);
     color: #ffff66;
 }
 
@@ -157,9 +167,8 @@ body {
 .arrowContainer {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
-    width: 100%;
     justify-content: center;
+    margin: 0;
 }
 
 .playerScoreLabelValue {
@@ -235,7 +244,7 @@ body {
     height: auto;
     /* Maintain aspect ratio */
     border: solid;
-    border-width: 5px;
+    border-width: 1vh;
     border-color: #ffff66;
 }
 
@@ -260,8 +269,9 @@ body {
     margin-bottom: 5vh;
 }
 
-.gameScreen .arrowContainer .stratagemArrow img {
+.stratagemArrow img {
     width: calc(100vw / 25);
+    height: auto;
     margin: 0 0.2vw;
 }
 
@@ -349,8 +359,8 @@ body {
     margin: 0;
 }
 
-.gameOverLeaderboardValues p {
-    font-size: min(2vw, 1600px);
+.maxScores {
+    font-size: min(1.5vw, 1600px);
     margin: 0;
 }
 

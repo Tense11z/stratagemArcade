@@ -34,7 +34,7 @@ let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
 // timer & timeBar variables
-let initialTime = 10;
+let initialTime = 10000;
 let interval;
 let secondsLeft;
 let timerInterval;
@@ -417,7 +417,7 @@ function initMenu() {
     displayRoundScore()
     gameOverLeaderboard.style.display = 'none';
     document.addEventListener('keydown', handleKeyDownForMenu);
-    startScreen.style.display = 'flex';
+    startScreen.style.display = 'block';
     document.removeEventListener('keydown', handleKeyDownForGame);
     // lowAmountOfTimeUIRecolor()
 }
