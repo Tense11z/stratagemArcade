@@ -304,6 +304,7 @@ function handleKeyDownForGame(e) {
                     if (stratagemID < roundStratagemList.length - 1) {
                         currentScore += roundStratagemList[stratagemID]['arrows'].length * 5;
                         stratagemID++;
+                        currentImage.classList.add('glow');
                         setTimeout(function () {
 
                             updateStratagemDisplay();
@@ -351,10 +352,19 @@ function handleKeyDownForGame(e) {
                 const firstDiv = document.querySelector('.firstArrow');
                 firstDiv.classList.add('current');
                 arrowPassedList = document.querySelector('.gameScreen').getElementsByClassName('stratagemArrow');
-                for (let i = 0; i < arrowPassedList.length; i += 1) {
-                    arrowPassedList[i].classList.remove('passed');
-                }
+                document.querySelectorAll('.passed').forEach(function (el) {
+                    el.classList.add('passedWrong');
+                });
+                setTimeout(function () {
+                    for (let i = 0; i < arrowPassedList.length; i += 1) {
+                        arrowPassedList[i].classList.remove('passed');
+                        arrowPassedList[i].classList.remove('passedWrong');
+                    }
+                }, 100);
+
+
                 perfectRoundFlag = false;
+
             }
         }
     } else {
@@ -378,6 +388,7 @@ function moveCurrentArrow(currentArrowDiv) {
 function moveCurrentImg(currentImage) {
     if (currentImage) {
         currentImage.classList.remove('currentImg');
+        currentImage.classList.remove('glow');
         const nextImg = currentImage.nextElementSibling;
         if (nextImg) {
             nextImg.classList.add('currentImg');
@@ -403,8 +414,9 @@ function handleKeyDownForMenu(e) {
         setTimeout(function () {
             preRoundGetReadyScreen.style.display = 'none';
             inGameScreen.style.display = 'flex';
-            initGame();
+
         }, 2000);
+        initGame();
     } else {
         console.log(`${e.key} is not in keymap`);
     }
