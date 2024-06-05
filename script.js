@@ -33,6 +33,7 @@ let perfectRoundFlag = true;
 let perfectRoundBonusValue = 100;
 let stratagemPerRoundAmount = 6;
 let stratagemID = 0;
+let menuFlag = true;
 // timer & timeBar variables
 let initialTime = 10;
 let interval;
@@ -41,6 +42,7 @@ let timerInterval;
 let previousSecondsLeft = initialTime;
 let stratagems;
 let indexOfNone = 5;
+let animationFrameId = null;
 //mapping arrows to the pictures
 const symbolToImageMap = {
     '↓': '/arrows/arrowD.png',
@@ -49,6 +51,79 @@ const symbolToImageMap = {
     '→': '/arrows/arrowR.png'
 };
 
+
+// gamepad support here
+let gameLoopRunning = false; // Flag to control the game loop
+let previousButtonState = {};
+
+// adding listener for gamepad, checking if connected
+window.addEventListener("gamepadconnected", (event) => {
+    console.log("A gamepad connected:");
+    console.log(event.gamepad);
+    // if (!gameLoopRunning) { // Start the game loop if it isn't running
+    //     gameLoopRunning = true;
+    //     requestAnimationFrame(gameLoop);
+    // }
+});
+
+// adding listener for gamepad, checking if disconnected
+window.addEventListener("gamepaddisconnected", (event) => {
+    console.log("A gamepad disconnected:");
+    console.log(event.gamepad);
+});
+function recreateAnimationFrame() {
+    if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(gameLoop);
+    } else {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(gameLoop);
+    }
+}
+//this thing reads gamepad input, allows to track only 1 button press
+function gameLoop() {
+    // if (!gameLoopRunning) return; // Exit the loop if the flag is false
+    const gp = navigator.getGamepads()[0];
+
+    let pressedButton;
+
+    if (gp) {
+        // Initialize previousButtonState if it hasn't been initialized yet
+        if (!previousButtonState[gp.index]) {
+            previousButtonState[gp.index] = gp.buttons.map(() => false);
+        }
+
+        gp.buttons.forEach((button, index) => {
+            if (button.value > 0 || button.pressed) {
+                if (!previousButtonState[gp.index][index]) {
+                    // Button was just pressed
+                    pressedButton = index; // Call the handler with the button number
+                    previousButtonState[gp.index][index] = true; // Update the state to pressed
+                }
+            } else {
+                previousButtonState[gp.index][index] = false; // Update the state to unpressed
+            }
+        });
+    } else {
+        // console.log("No gamepad connected");
+    }
+    recreateAnimationFrame()
+    if (!menuFlag) {
+        try {
+            handleKeyDownForGame(pressedButton);
+        } catch (error) {
+
+        }
+    } else {
+        try {
+            handleKeyDownForMenu(pressedButton);
+        } catch (error) {
+
+        }
+    }
+    return pressedButton;
+}
+
+// gamepad support is above ^^^^^^^^^^^^^^^
 
 async function fetchStratagems() {
     try {
@@ -145,8 +220,9 @@ function initGame() {
     updateStratagemDisplay();
     mainScreenGameContainer()
     currentScore = 0;
-    timeDisplay.textContent = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
+    // timeDisplay.textContent = '00:' + (secondsLeft < 10 ? '0' : '') + secondsLeft;
     playerScore.textContent = currentScore;
+    menuFlag = false;
 }
 
 function startRound() {
@@ -163,7 +239,6 @@ function startRound() {
     for (let i = 0; i < stratagemPerRoundAmount; i++) {
         roundStratagemList.push(stratagems[stratagemNames[Math.floor(Math.random() * stratagemNames.length)]]);
     }
-    console.log(roundStratagemList); // for debugging
 }
 
 function calculatePlayerScore() {
@@ -282,7 +357,13 @@ function handleKeyDownForGame(e) {
                 '←': 'ArrowLeft',
                 '→': 'ArrowRight'
             };
-            if (e.key === arrowKeyMap[currentArrow]) {
+            const gamepadKeyMap = {
+                '↓': 13,
+                '↑': 12,
+                '←': 14,
+                '→': 15
+            };
+            if (e.key === arrowKeyMap[currentArrow] || e === gamepadKeyMap[currentArrow]) {
                 currentArrowDiv.classList.add('passed');
                 moveCurrentArrow(currentArrowDiv)
                 if (currentArrowDiv.classList.contains('lastArrow')) {
@@ -407,7 +488,14 @@ function handleKeyDownForMenu(e) {
         '←': 'ArrowLeft',
         '→': 'ArrowRight'
     };
-    if (Object.values(arrowKeyMap).includes(e.key)) {
+    const gamepadKeyMap = {
+        '↓': 13,
+        '↑': 12,
+        '←': 14,
+        '→': 15
+    };
+    if (Object.values(arrowKeyMap).includes(e.key) || Object.values(gamepadKeyMap).includes(e)) {
+        menuFlag = false;
         startScreen.style.display = 'none';
         preRoundGetReadyScreen.style.display = 'flex';
         document.removeEventListener('keydown', handleKeyDownForMenu);
@@ -424,6 +512,8 @@ function handleKeyDownForMenu(e) {
 fetchStratagems();
 
 function initMenu() {
+    menuFlag = true;
+    gameLoop()
     indexOfNone = 5;
     stratagemID = 0;
     displayRoundScore()
